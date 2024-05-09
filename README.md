@@ -1,8 +1,24 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Ironbuster Client
 
-Currently, two official plugins are available:
+This is an URL guide for the Ironbuster App.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+# URL Reference
+
+Base URL: `https://tyrmund.github.io/ironbuster`
+
+## Routes
+
+| Path                          | Description                    |
+| :---------------------------- | :----------------------------- |
+| `/`                           | Homepage                       |
+| `/about`                      | About Page                     |
+| `/movies`                     | Movies Page List               |
+| `/movies/details/:movieId`    | Movie Details Page             |
+| `/movies/edit/:movieId`       | Movie Edit Page                |
+| `/movies/new`                 | Movie Creation Form            |
+| `/bookings`                   | Bookings Page List             |
+| `/bookings/details/:bookingId`| Booking Details Page           |
+| `/bookings/edit/:bookingId`   | Bookings Page List             |
+| `/bookings/new`               | Bookings Creation Form         |
