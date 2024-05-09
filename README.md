@@ -6,7 +6,7 @@ This is an URL guide for the Ironbuster App.
 
 # URL Reference
 
-Base URL: `https://tyrmund.github.io/ironbuster`
+Base URL: `http://localhost:5000/`
 
 ## Routes
 
@@ -15,10 +15,10 @@ Base URL: `https://tyrmund.github.io/ironbuster`
 | `/`                           | Homepage                       |
 | `/about`                      | About Page                     |
 | `/movies`                     | Movies Page List               |
-| `/movies/details/:movieId`    | Movie Details Page             |
+| `/movies/:movieId`            | Movie Details Page             |
 | `/movies/edit/:movieId`       | Movie Edit Page                |
 | `/movies/new`                 | Movie Creation Form            |
 | `/bookings`                   | Bookings Page List             |
-| `/bookings/details/:bookingId`| Booking Details Page           |
+| `/bookings/:bookingId`        | Booking Details Page           |
 | `/bookings/edit/:bookingId`   | Bookings Page List             |
 | `/bookings/new`               | Bookings Creation Form         |
