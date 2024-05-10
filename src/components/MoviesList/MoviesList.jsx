@@ -22,6 +22,7 @@ function MoviesList() {
 
     return (
         <div className='MoviesList'>
+
             {
                 movies.map((movie) =>
                     <Link to={`/movies/${movie.id}`}>
