@@ -1,5 +1,7 @@
 import axios from "axios"
+import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
+import MovieCard from "../MovieCard/MovieCard"
 
 const API_URL = "http://localhost:5000"
 
@@ -22,11 +24,10 @@ function MoviesList() {
         <div className='MoviesList'>
             {
                 movies.map((movie) =>
-                    <div key={movie.id}>
-                        <h1>{movie.title}</h1>
-                    </div>
-                )
-            }
+                    <Link to={`/movies/${movie.id}`}>
+                        <MovieCard key={movie.id} {...movie} />
+                    </Link>
+                )}
         </div>
     )
 }

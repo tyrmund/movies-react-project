@@ -1,13 +1,13 @@
 import MoviesList from "../../components/MoviesList/MoviesList"
 
-function MoviesPage() {
+function MoviesListPage() {
 
     return (
-        <div className="MoviesPage">
+        <div className="MoviesListPage">
             <MoviesList />
         </div>
     )
 
 }
 
-export default MoviesPage
+export default MoviesListPage
