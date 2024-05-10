@@ -1,8 +1,28 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { Container } from "react-bootstrap"
+import axios from "axios"
+import { useNavigate, useParams } from "react-router-dom"
+
+const API_URL = "http://localhost:5000"
 
 function MovieEditForm() {
 
-    const [MovieEditForm, setMovieEditForm] = useState({
+    const navigate = useNavigate()
+
+    const { movieId } = useParams()
+
+    useEffect(() => {
+        loadMovieToEdit()
+    }, [])
+
+    const loadMovieToEdit = () => {
+        axios
+            .get(`${API_URL}/movies/edit/${movieId}`)
+            .then(({ data }) => setMovieData(data))
+            .catch(err => console.log(err))
+    }
+
+    const [movieData, setMovieData] = useState({
         image: '',
         title: '',
         releaseYear: '',
@@ -18,86 +38,120 @@ function MovieEditForm() {
 
     const handleMovieEditFormChange = (event) => {
         const { value, name } = event.target
-        setMovieEditForm({ ...MovieEditForm, [name]: value })
+        setMovieData({ ...movieData, [name]: value })
     }
 
     const handleMovieSubmit = (event) => {
         event.preventDefault()
-        alert(`Creando ${MovieEditForm.title}!`)
+        axios
+            .post(`${API_URL}/movies`, movieData)
+            .then(() => {
+                alert(`Creando ${movieData.title}!`)
+                navigate('/')
+            })
+            .catch(err => console.log(err))
     }
 
     return (
-        <div className="MovieEditForm">
-            <hr />
-            <form onSubmit={handleMovieSubmit}>
-                <label>Poster URL</label>
-                <input
-                    type="text"
-                    name="image"
-                    value={MovieEditForm.image}
-                    onChange={handleMovieEditFormChange} />
-                <br />
-                <label>Movie Title</label>
-                <input
-                    type="text"
-                    name="title"
-                    value={MovieEditForm.title}
-                    onChange={handleMovieEditFormChange} />
-                <br />
-                <label>Year of Release</label>
-                <input
-                    type="text"
-                    name="releaseYear"
-                    value={MovieEditForm.releaseYear}
-                    onChange={handleMovieEditFormChange} />
-                <br />
-                <label>Director</label>
-                <input
-                    type="text"
-                    name="director"
-                    value={MovieEditForm.director}
-                    onChange={handleMovieEditFormChange} />
-                <br />
-                <label>Description</label>
-                <input
-                    type="text"
-                    name="description"
-                    value={MovieEditForm.description}
-                    onChange={handleMovieEditFormChange} />
-                <br />
-                <label>Genre</label>
-                <input
-                    type="text"
-                    name="genre"
-                    value={MovieEditForm.genre}
-                    onChange={handleMovieEditFormChange} />
-                <br />
-                <label>Distributor</label>
-                <input
-                    type="text"
-                    name="distributor"
-                    value={MovieEditForm.distributor}
-                    onChange={handleMovieEditFormChange} />
-                <br />
-                <label>Running Time in Minutes</label>
-                <input
-                    type="number"
-                    name="runningTime"
-                    value={MovieEditForm.runningTime}
-                    onChange={handleMovieEditFormChange} />
-                <br />
-                <label>Rating</label>
-                <input
-                    type="number"
-                    min={0}
-                    max={10}
-                    name="rating"
-                    value={MovieEditForm.rating}
-                    onChange={handleMovieEditFormChange} />
-                <br />
-                <input type="submit" />
-            </form>
-            <hr />
+        <div className="MovieEditForm mb-5">
+            <Container className="w-70 h-70 d-block mx-auto">
+                <form className="mx-5" onSubmit={handleMovieSubmit}>
+                    <div className="mb-3">
+                        <label className="form-label">Poster URL</label>
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="image"
+                            value={movieData.image}
+                            onChange={handleMovieEditFormChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">Movie Title</label>
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="title"
+                            value={movieData.title}
+                            onChange={handleMovieEditFormChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">Year of Release</label>
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="releaseYear"
+                            value={movieData.releaseYear}
+                            onChange={handleMovieEditFormChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">Director</label>
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="director"
+                            value={movieData.director}
+                            onChange={handleMovieEditFormChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">Genre</label>
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="genre"
+                            value={movieData.genre}
+                            onChange={handleMovieEditFormChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">Distributor</label>
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="distributor"
+                            value={movieData.distributor}
+                            onChange={handleMovieEditFormChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">Running Time in Minutes</label>
+                        <input
+                            className="form-control"
+                            type="number"
+                            name="runningTime"
+                            value={movieData.runningTime}
+                            onChange={handleMovieEditFormChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">Rating</label>
+                        <input
+                            className="form-control"
+                            type="number"
+                            min={0}
+                            max={10}
+                            name="rating"
+                            value={movieData.rating}
+                            onChange={handleMovieEditFormChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">Description</label>
+                        <textarea
+                            className="form-control"
+                            type="text"
+                            name="description"
+                            rows='5'
+                            value={movieData.description}
+                            onChange={handleMovieEditFormChange} />
+                    </div>
+
+                    <input className="mx-auto d-block btn btn-primary" type="submit" />
+                </form>
+            </Container>
         </div>
     )
 

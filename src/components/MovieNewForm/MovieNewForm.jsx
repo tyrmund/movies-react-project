@@ -1,8 +1,15 @@
 import { useState } from "react"
+import { Container } from "react-bootstrap"
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
-function MovieForm() {
+const API_URL = "http://localhost:5000"
 
-    const [movieForm, setMovieForm] = useState({
+function MovieNewForm() {
+
+    const navigate = useNavigate()
+
+    const [newMovie, setNewMovie] = useState({
         image: '',
         title: '',
         releaseYear: '',
@@ -16,91 +23,125 @@ function MovieForm() {
         rating: 0
     })
 
-    const handleMovieFormChange = (event) => {
+    const handleMovieNewFormChange = (event) => {
         const { value, name } = event.target
-        setMovieForm({ ...movieForm, [name]: value })
+        setNewMovie({ ...newMovie, [name]: value })
     }
 
     const handleMovieSubmit = (event) => {
         event.preventDefault()
-        alert(`Creando ${movieForm.title}!`)
+        axios
+            .post(`${API_URL}/movies`, newMovie)
+            .then(() => {
+                alert(`Creando ${newMovie.title}!`)
+                navigate('/')
+            })
+            .catch(err => console.log(err))
     }
 
     return (
-        <div className="MovieForm">
-            <hr />
-            <form onSubmit={handleMovieSubmit}>
-                <label>Poster URL</label>
-                <input
-                    type="text"
-                    name="image"
-                    value={movieForm.image}
-                    onChange={handleMovieFormChange} />
-                <br />
-                <label>Movie Title</label>
-                <input
-                    type="text"
-                    name="title"
-                    value={movieForm.title}
-                    onChange={handleMovieFormChange} />
-                <br />
-                <label>Year of Release</label>
-                <input
-                    type="text"
-                    name="releaseYear"
-                    value={movieForm.releaseYear}
-                    onChange={handleMovieFormChange} />
-                <br />
-                <label>Director</label>
-                <input
-                    type="text"
-                    name="director"
-                    value={movieForm.director}
-                    onChange={handleMovieFormChange} />
-                <br />
-                <label>Description</label>
-                <input
-                    type="text"
-                    name="description"
-                    value={movieForm.description}
-                    onChange={handleMovieFormChange} />
-                <br />
-                <label>Genre</label>
-                <input
-                    type="text"
-                    name="genre"
-                    value={movieForm.genre}
-                    onChange={handleMovieFormChange} />
-                <br />
-                <label>Distributor</label>
-                <input
-                    type="text"
-                    name="distributor"
-                    value={movieForm.distributor}
-                    onChange={handleMovieFormChange} />
-                <br />
-                <label>Running Time in Minutes</label>
-                <input
-                    type="number"
-                    name="runningTime"
-                    value={movieForm.runningTime}
-                    onChange={handleMovieFormChange} />
-                <br />
-                <label>Rating</label>
-                <input
-                    type="number"
-                    min={0}
-                    max={10}
-                    name="rating"
-                    value={movieForm.rating}
-                    onChange={handleMovieFormChange} />
-                <br />
-                <input type="submit" />
-            </form>
-            <hr />
+        <div className="MovieNewForm mb-5">
+            <Container className="w-70 h-70 d-block mx-auto">
+                <form className="mx-5" onSubmit={handleMovieSubmit}>
+                    <div className="mb-3">
+                        <label className="form-label">Poster URL</label>
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="image"
+                            value={newMovie.image}
+                            onChange={handleMovieNewFormChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">Movie Title</label>
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="title"
+                            value={newMovie.title}
+                            onChange={handleMovieNewFormChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">Year of Release</label>
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="releaseYear"
+                            value={newMovie.releaseYear}
+                            onChange={handleMovieNewFormChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">Director</label>
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="director"
+                            value={newMovie.director}
+                            onChange={handleMovieNewFormChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">Genre</label>
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="genre"
+                            value={newMovie.genre}
+                            onChange={handleMovieNewFormChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">Distributor</label>
+                        <input
+                            className="form-control"
+                            type="text"
+                            name="distributor"
+                            value={newMovie.distributor}
+                            onChange={handleMovieNewFormChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">Running Time in Minutes</label>
+                        <input
+                            className="form-control"
+                            type="number"
+                            name="runningTime"
+                            value={newMovie.runningTime}
+                            onChange={handleMovieNewFormChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">Rating</label>
+                        <input
+                            className="form-control"
+                            type="number"
+                            min={0}
+                            max={10}
+                            name="rating"
+                            value={newMovie.rating}
+                            onChange={handleMovieNewFormChange} />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">Description</label>
+                        <textarea
+                            className="form-control"
+                            type="text"
+                            name="description"
+                            rows='5'
+                            value={newMovie.description}
+                            onChange={handleMovieNewFormChange} />
+                    </div>
+
+                    <input className="mx-auto d-block btn btn-primary" type="submit" />
+                </form>
+            </Container>
         </div>
     )
 
 }
 
-export default MovieForm
+export default MovieNewForm
