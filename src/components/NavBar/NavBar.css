@@ -1,0 +1,25 @@
+.bg-body-tertiary {
+  background-color: blue !important;
+}
+
+.nav-link {
+  color: white !important;
+}
+
+.link {
+  text-decoration: none;
+}
+
+.navbar-brand {
+  color: white;
+  margin-bottom: 0;
+}
+
+.navbar-brand img {
+  color: white;
+}
+
+.navbar-brand p {
+  margin-bottom: 0;
+  margin-left: 20px;
+}

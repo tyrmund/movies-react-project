@@ -1,0 +1,44 @@
+.MovieDetailsPage {
+  margin: 20px;
+  border: 1px solid rgba(239, 239, 240, 0.9);
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px 1px gainsboro;
+}
+
+.detail-info {
+  margin-left: 40px;
+}
+
+.movie-title {
+  font-size: 50px;
+}
+
+.movie-rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  color: black;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 0;
+  background-color: green;
+  border-radius: 25px;
+  padding: 8px;
+}
+
+.text-movie-info {
+  margin-top: 50px;
+}
+
+.title-movie-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+.description-text {
+  margin-top: 80px;
+}
