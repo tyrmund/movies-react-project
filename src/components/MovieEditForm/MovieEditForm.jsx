@@ -7,55 +7,106 @@ const API_URL = "http://localhost:5000"
 
 function MovieEditForm() {
 
-    const navigate = useNavigate()
-
     const { movieId } = useParams()
 
     useEffect(() => {
-        loadMovieToEdit()
+        loadMovie()
     }, [])
 
-    const loadMovieToEdit = () => {
+    const loadMovie = () => {
         axios
-            .get(`${API_URL}/movies/edit/${movieId}`)
-            .then(({ data }) => setMovieData(data))
+            .get(`${API_URL}/movies/${movieId}`)
+            .then(({ data }) => {
+                const fullMovie = JSON.parse(JSON.stringify(data))
+                setAwards(fullMovie.awards)
+                setMainCast(fullMovie.mainCast)
+                setMovieData({
+                    image: fullMovie.image,
+                    title: fullMovie.title,
+                    releaseYear: fullMovie.releaseYear,
+                    director: fullMovie.director,
+                    description: fullMovie.description,
+                    genre: fullMovie.genre,
+                    distributor: fullMovie.distributor,
+                    runningTime: fullMovie.runningTime,
+                    rating: fullMovie.rating
+                })
+            })
             .catch(err => console.log(err))
     }
+
+    const navigate = useNavigate()
 
     const [movieData, setMovieData] = useState({
         image: '',
         title: '',
         releaseYear: '',
         director: '',
-        mainCast: [],
         description: '',
-        awards: [{}],
         genre: '',
         distributor: '',
         runningTime: 0,
         rating: 0
     })
 
+    const [mainCast, setMainCast] = useState([''])
+
+    const [awards, setAwards] = useState([{
+        name: '',
+        category: '',
+        year: ''
+    }])
+
     const handleMovieEditFormChange = (event) => {
         const { value, name } = event.target
         setMovieData({ ...movieData, [name]: value })
     }
 
-    const handleMovieSubmit = (event) => {
+    const handleMainCastChange = (event, index) => {
+        const { value } = event.target
+        const updatedCast = [...mainCast]
+        updatedCast[index] = value
+        setMainCast(updatedCast)
+    }
+
+    const handleAwardChange = (event, index) => {
+        const { value, name } = event.target
+        const updatedAwards = [...awards]
+        updatedAwards[index][name] = value
+        setAwards(updatedAwards)
+    }
+
+    const addMainCastInput = () => {
+        const editedActor = [...mainCast, '']
+        setMainCast(editedActor)
+    }
+
+    const addAwardsInput = () => {
+        const editedAward = [...awards, { name: '', category: '', year: '' }]
+        setAwards(editedAward)
+    }
+
+    const handleEditedMovieSubmit = (event) => {
+
         event.preventDefault()
+
+        const fullMovie = JSON.parse(JSON.stringify(movieData))
+        fullMovie.mainCast = JSON.parse(JSON.stringify(mainCast))
+        fullMovie.awards = JSON.parse(JSON.stringify(awards))
+
         axios
-            .post(`${API_URL}/movies`, movieData)
+            .put(`${API_URL}/movies/${movieId}`, fullMovie)
             .then(() => {
-                alert(`Creando ${movieData.title}!`)
-                navigate('/')
+                alert(`Creando ${fullMovie.title}!`)
+                navigate('/movies')
             })
             .catch(err => console.log(err))
     }
 
     return (
         <div className="MovieEditForm mb-5">
-            <Container className="w-70 h-70 d-block mx-auto">
-                <form className="mx-5" onSubmit={handleMovieSubmit}>
+            <Container className="d-block mx-auto">
+                <form className="mx-5" onSubmit={handleEditedMovieSubmit}>
                     <div className="mb-3">
                         <label className="form-label">Poster URL</label>
                         <input
@@ -96,6 +147,62 @@ function MovieEditForm() {
                             onChange={handleMovieEditFormChange} />
                     </div>
 
+                    <div>
+                        <label className="form-label">Main Cast</label>
+                        {mainCast.map((actor, index) => (
+                            <div className="mb-3" key={index}>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    name="actor"
+                                    placeholder="Actor's full name"
+                                    value={actor}
+                                    onChange={(event) => handleMainCastChange(event, index)} />
+                            </div>
+                        ))}
+                        <button
+                            onClick={addMainCastInput}
+                            className="btn btn-secondary mb-3 opacity-50"
+                            type="button">
+                            Add More
+                        </button>
+                    </div>
+
+                    <div>
+                        <label className="form-label">Awards</label>
+                        {awards.map((award, index) => (
+                            <div className="mb-3" key={index}>
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    name="name"
+                                    placeholder="Award name"
+                                    value={award.name}
+                                    onChange={(event) => handleAwardChange(event, index)} />
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    name="category"
+                                    placeholder="Category"
+                                    value={award.category}
+                                    onChange={(event) => handleAwardChange(event, index)} />
+                                <input
+                                    className="form-control"
+                                    type="number"
+                                    name="year"
+                                    placeholder="Year"
+                                    value={award.year}
+                                    onChange={(event) => handleAwardChange(event, index)} />
+                            </div>
+                        ))}
+                        <button
+                            onClick={addAwardsInput}
+                            className="btn btn-secondary mb-3 opacity-50"
+                            type="button">
+                            Add More
+                        </button>
+                    </div>
+
                     <div className="mb-3">
                         <label className="form-label">Genre</label>
                         <input
@@ -133,6 +240,7 @@ function MovieEditForm() {
                             type="number"
                             min={0}
                             max={10}
+                            step="0.1"
                             name="rating"
                             value={movieData.rating}
                             onChange={handleMovieEditFormChange} />
@@ -149,7 +257,10 @@ function MovieEditForm() {
                             onChange={handleMovieEditFormChange} />
                     </div>
 
-                    <input className="mx-auto d-block btn btn-primary" type="submit" />
+                    <input
+                        className="mx-auto d-block btn btn-primary"
+                        type="submit"
+                        value="Edit" />
                 </form>
             </Container>
         </div>

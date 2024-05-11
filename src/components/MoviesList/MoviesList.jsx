@@ -33,19 +33,16 @@ function MoviesList() {
       <Container>
         <Row className="justify-content-center">
           {movies.map((movie) =>
-            <Col key={movie.id} md={4} className="shadow-lg p-3 bg-white rounded m-3">
+            <Col
+              key={movie.id} md={4}
+              className="shadow-lg p-3 bg-white rounded m-3"
+              style={{ minWidth: '350px' }}>
               <Link
                 style={{ textDecoration: 'none', color: 'black' }}
                 to={`/movies/${movie.id}`}
               >
                 <MovieCard {...movie} />
               </Link>
-              <button
-                type="button"
-                className="mx-auto d-block btn bg-dark btn-outline-danger"
-                onClick={() => deleteMovie(movie.id)}>
-                Delete Movie
-              </button>
             </Col>
           )}
         </Row>

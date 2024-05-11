@@ -1,6 +1,7 @@
 import { Container } from 'react-bootstrap';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const API_URL = 'http://localhost:5000'
 
@@ -15,7 +16,10 @@ function HomePage() {
     const loadRandomPoster = () => {
         axios
             .get(`${API_URL}/movies`)
-            .then(({ data }) => setPoster(data[Math.floor(Math.random() * data.length)].image))
+            .then(({ data }) => {
+                const randomMovie = data[Math.floor(Math.random() * data.length)]
+                setPoster(randomMovie)
+            })
             .catch(err => console.log(err))
     }
 
@@ -29,11 +33,13 @@ function HomePage() {
                 >La colección de películas más grande de Ironhack Matadero
                 </h2>
                 <div className='shadow-lg p-3 mb-5 bg-white rounded'>
-                    <img
-                        src={poster}
-                        alt="random-poster"
-                        className="rounded mx-auto d-block w-50 h-50 mt-5"
-                    />
+                    <Link to={`/movies/${poster.id}`}>
+                        <img
+                            src={poster.image}
+                            alt="random-poster"
+                            className="rounded mx-auto d-block w-50 h-50 mt-5"
+                        />
+                    </Link>
                     <p className='text-center font-italic mt-3'>
                         Actualmente disponible en nuestro catálogo
                     </p>
