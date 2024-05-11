@@ -1,7 +1,8 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { Container, Row, Col } from "react-bootstrap"
+import { Container, Row, Col, Button } from "react-bootstrap"
+import { Link } from "react-router-dom"
 import './MovieDetailsPage.css'
 
 const API_URL = "http://localhost:5000"
@@ -24,6 +25,20 @@ function MovieDetailsPage() {
       .catch(err => console.log(err))
   }
 
+  let ratingColor = ''
+  if (movie !== undefined) {
+    if (movie.rating > 8.5) ratingColor = 'bg-success'
+    else if (movie.rating > 7) ratingColor = 'bg-info'
+    else if (movie.rating > 4) ratingColor = 'bg-warning'
+    else ratingColor = 'bg-danger'
+  }
+
+  const deleteMovie = (id) => {
+    axios
+      .delete(`${API_URL}/movies/${id}`)
+      .then(getOneMovie())
+      .catch(err => console.log(err))
+  }
 
   return (
     <div className="MovieDetailsPage">
@@ -41,7 +56,7 @@ function MovieDetailsPage() {
                     <div className="title-movie-info">
 
                       <h1 className="movie-title">{movie.title}</h1>
-                      <h1 className="movie-rating">{movie.rating}</h1>
+                      <h1 className={`movie-rating ${ratingColor}`}>{movie.rating}</h1>
 
                     </div>
                     <div className="text-movie-info">
@@ -53,6 +68,21 @@ function MovieDetailsPage() {
                       <p className="description-text">Description:</p>
                       <p className="description-paragraph">{movie.description}</p>
                       <p>Awards: {movie.awards[0].name} in {movie.awards[0].category}, {movie.awards[0].year}</p>
+
+                      <div className="btns-movie mt-3">
+                        <Link to={`/movies/edit/${movieId}`} style={{ textDecoration: 'none' }}>
+                          <Button variant="secondary">Edit</Button>{' '}
+                        </Link>
+
+                        <Link to={`/movies`} style={{ textDecoration: 'none' }}>
+                          <Button variant="danger">Delete</Button>{' '}
+                        </Link>
+                        <br />
+
+                        <Link to={`/bookings/new`} style={{ textDecoration: 'none', marginTop: '5px' }}>
+                          <Button variant="primary">Book movie</Button>{' '}
+                        </Link>
+                      </div>
 
                     </div>
                   </div>

@@ -29,7 +29,7 @@ function NavBar() {
               <Link to="/movies" className="link">
                 <Nav.Link as="span">Movies</Nav.Link>
               </Link>
-              <Link className="link">
+              <Link to='/bookings' className="link">
                 <Nav.Link href="#link" as="span">Bookings</Nav.Link>
               </Link>
               <Link to="/about" className="link">
