@@ -11,7 +11,7 @@ function MovieCard({ id, title, image, director, rating }) {
       <img
         src={image}
         alt={title}
-        className="w-100 h-auto mx-auto d-block"
+        className="w-auto h-100 mx-auto d-block rounded"
         style={{ maxHeight: '400px' }} />
       <div className="MovieCardInfo">
         <h1 className="text-center mt-3 mb-3 fs-3">{title}</h1>
