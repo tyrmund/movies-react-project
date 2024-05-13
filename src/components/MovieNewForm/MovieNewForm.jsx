@@ -1,7 +1,8 @@
 import { useState } from "react"
-import { Container } from "react-bootstrap"
+import { Container, Form, Button } from "react-bootstrap"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { getRunningTime } from "../../utils/movie.utils"
 
 const API_URL = "http://localhost:5000"
 
@@ -17,7 +18,7 @@ function MovieNewForm() {
     description: '',
     genre: '',
     distributor: '',
-    runningTime: 0,
+    runningTime: '00:00',
     rating: 0
   })
 
@@ -62,155 +63,151 @@ function MovieNewForm() {
 
     event.preventDefault()
 
-    const newMovie = {
-      ...movieData,
+    const createdMovie = {
+      ...newMovie,
       mainCast,
       awards
     }
 
-    axios
-      .post(`${API_URL}/movies`, newMovie)
-      .then(() => {
-        alert(`Creando ${newMovie.title}!`)
-        navigate('/')
-      })
-      .catch(err => console.log(err))
+    createdMovie.runningTime = getRunningTime(createdMovie.runningTime)
+
+    // axios
+    //   .post(`${API_URL}/movies`, newMovie)
+    //   .then(() => {
+    //     console.log(`Creando ${newMovie.title}!`)
+    //     navigate('/')
+    //   })
+    //   .catch(err => console.log(err))
   }
 
   return (
     <div className="MovieNewForm mb-5">
       <Container className="d-block mx-auto">
-        <form className="mx-5" onSubmit={handleMovieSubmit}>
-          <div className="mb-3">
-            <label className="form-label">Poster URL</label>
-            <input
-              className="form-control"
+        <Form className="mx-5" onSubmit={handleMovieSubmit}>
+          <Form.Group className="mb-3">
+            <Form.Label>Poster URL</Form.Label>
+            <Form.Control
               type="text"
               name="image"
               value={newMovie.image}
               onChange={handleMovieNewFormChange} />
-          </div>
+          </Form.Group>
 
-          <div className="mb-3">
-            <label className="form-label">Movie Title</label>
-            <input
-              className="form-control"
+          <Form.Group className="mb-3">
+            <Form.Label>Movie Title</Form.Label>
+            <Form.Control
               type="text"
               name="title"
               value={newMovie.title}
               onChange={handleMovieNewFormChange} />
-          </div>
+          </Form.Group>
 
-          <div className="mb-3">
-            <label className="form-label">Year of Release</label>
-            <input
-              className="form-control"
+          <Form.Group className="mb-3">
+            <Form.Label>Year of Release</Form.Label>
+            <Form.Control
               type="text"
               name="releaseYear"
               value={newMovie.releaseYear}
               onChange={handleMovieNewFormChange} />
-          </div>
+          </Form.Group>
 
-          <div className="mb-3">
-            <label className="form-label">Director</label>
-            <input
-              className="form-control"
+          <Form.Group className="mb-3">
+            <Form.Label>Director</Form.Label>
+            <Form.Control
               type="text"
               name="director"
               value={newMovie.director}
               onChange={handleMovieNewFormChange} />
-          </div>
+          </Form.Group>
 
-          <div>
-            <label className="form-label">Main Cast</label>
+
+          <Form.Group className="mb-3" >
+            <Form.Label>Main Cast</Form.Label>
             {mainCast.map((actor, index) => (
-              <div className="mb-3" key={index}>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="actor"
-                  placeholder="Actor's full name"
-                  value={actor}
-                  onChange={(event) => handleMainCastChange(event, index)} />
-              </div>
+
+              <Form.Control
+                key={index}
+                type="text"
+                name="actor"
+                placeholder="Actor's full name"
+                value={actor}
+                onChange={(event) => handleMainCastChange(event, index)} />
+
             ))}
-            <button
+            <Button
               onClick={addMainCastInput}
-              className="btn btn-secondary mb-3 opacity-50"
+              className="btn btn-secondary mt-3 mb-3 opacity-50"
               type="button">
               Add More
-            </button>
-          </div>
+            </Button>
+          </Form.Group>
 
-          <div>
-            <label className="form-label">Awards</label>
+
+          <Form.Group>
+            <Form.Label>Awards</Form.Label>
             {awards.map((award, index) => (
-              <div className="mb-3" key={index}>
-                <input
+              <Form.Group className="mb-3" key={index}>
+                <Form.Control
                   className="form-control"
                   type="text"
                   name="name"
                   placeholder="Award name"
                   value={award.name}
                   onChange={(event) => handleAwardChange(event, index)} />
-                <input
+                <Form.Control
                   className="form-control"
                   type="text"
                   name="category"
                   placeholder="Category"
                   value={award.category}
                   onChange={(event) => handleAwardChange(event, index)} />
-                <input
+                <Form.Control
                   className="form-control"
                   type="number"
                   name="year"
                   placeholder="Year"
                   value={award.year}
                   onChange={(event) => handleAwardChange(event, index)} />
-              </div>
+              </Form.Group>
             ))}
-            <button
+            <Button
               onClick={addAwardsInput}
               className="btn btn-secondary mb-3 opacity-50"
               type="button">
               Add More
-            </button>
-          </div>
+            </Button>
+          </Form.Group>
 
-          <div className="mb-3">
-            <label className="form-label">Genre</label>
-            <input
-              className="form-control"
+          <Form.Group className="mb-3">
+            <Form.Label>Genre</Form.Label>
+            <Form.Control
               type="text"
               name="genre"
               value={newMovie.genre}
               onChange={handleMovieNewFormChange} />
-          </div>
+          </Form.Group>
 
-          <div className="mb-3">
-            <label className="form-label">Distributor</label>
-            <input
-              className="form-control"
+          <Form.Group className="mb-3">
+            <Form.Label>Distributor</Form.Label>
+            <Form.Control
               type="text"
               name="distributor"
               value={newMovie.distributor}
               onChange={handleMovieNewFormChange} />
-          </div>
+          </Form.Group>
 
-          <div className="mb-3">
-            <label className="form-label">Running Time in Minutes</label>
-            <input
-              className="form-control"
-              type="number"
+          <Form.Group className="mb-3">
+            <Form.Label>Running Time</Form.Label>
+            <Form.Control
+              type="time"
               name="runningTime"
               value={newMovie.runningTime}
               onChange={handleMovieNewFormChange} />
-          </div>
+          </Form.Group>
 
-          <div className="mb-3">
-            <label className="form-label">Rating</label>
-            <input
-              className="form-control"
+          <Form.Group className="mb-3">
+            <Form.Label>Rating</Form.Label>
+            <Form.Control
               type="number"
               min={0}
               max={10}
@@ -218,21 +215,26 @@ function MovieNewForm() {
               name="rating"
               value={newMovie.rating}
               onChange={handleMovieNewFormChange} />
-          </div>
+          </Form.Group>
 
-          <div className="mb-3">
-            <label className="form-label">Description</label>
-            <textarea
-              className="form-control"
+          <Form.Group className="mb-3">
+            <Form.Label>Description</Form.Label>
+            <Form.Control
               type="text"
               name="description"
-              rows='5'
+              as="textarea"
+              rows="5"
               value={newMovie.description}
               onChange={handleMovieNewFormChange} />
-          </div>
+          </Form.Group>
 
-          <input className="mx-auto d-block btn btn-primary" type="submit" />
-        </form>
+          <Button
+            variant="primary"
+            type="submit"
+            className="mx-auto d-block btn btn-primary">
+            Create!
+          </Button>
+        </Form>
       </Container>
     </div>
   )

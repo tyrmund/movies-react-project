@@ -1,0 +1,8 @@
+.MovieCard {
+    text-align: center;
+}
+
+.MovieCard img {
+    height: 400px;
+    object-fit: cover;
+}

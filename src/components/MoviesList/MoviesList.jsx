@@ -36,7 +36,7 @@ function MoviesList() {
             <Col
               key={movie.id}
               md={{ span: 4 }}
-              className="shadow-lg p-3 bg-white rounded m-3">
+              className="p-3 bg-white rounded m-3">
               <Link
                 style={{ textDecoration: 'none', color: 'black' }}
                 to={`/movies/${movie.id}`}

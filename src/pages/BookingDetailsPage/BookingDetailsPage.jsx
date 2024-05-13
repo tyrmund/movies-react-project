@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
 import { Container, Row, Col, Button, Toast } from "react-bootstrap"
 import { MONTH_STRINGS } from "../../consts/data.consts"
+import { stringToDate } from "../../utils/booking.utils"
 
 const API_URL = 'http://localhost:5000'
 
@@ -45,20 +46,6 @@ function BookingDetailsPage() {
         //     .delete(`${API_URL}/bookings/${bookingId}`)
         //     .then(navigate('/bookings'))
         //     .catch(err => console.log(err))
-    }
-
-    // TODO: MOVER A UTILS
-    const stringToDate = (timestamp) => {
-
-        const timestampParts = timestamp?.split(" ")
-        const day = timestampParts[2]
-        const month = timestampParts[1]
-        const year = timestampParts[3]
-        const time = timestampParts[4]
-
-        const newDate = new Date(`${month} ${day}, ${year} ${time}`)
-        return newDate
-
     }
 
     const monthNames = MONTH_STRINGS
