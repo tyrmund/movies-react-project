@@ -62,9 +62,11 @@ function MovieNewForm() {
 
     event.preventDefault()
 
-    const fullMovie = JSON.parse(JSON.stringify(newMovie))
-    fullMovie.mainCast = JSON.parse(JSON.stringify(mainCast))
-    fullMovie.awards = JSON.parse(JSON.stringify(awards))
+    const newMovie = {
+      ...movieData,
+      mainCast,
+      awards
+    }
 
     axios
       .post(`${API_URL}/movies`, newMovie)

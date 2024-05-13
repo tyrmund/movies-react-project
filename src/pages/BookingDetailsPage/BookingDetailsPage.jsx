@@ -2,6 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
 import { Container, Row, Col, Button, Toast } from "react-bootstrap"
+import { MONTH_STRINGS } from "../../consts/data.consts"
 
 const API_URL = 'http://localhost:5000'
 
@@ -46,6 +47,7 @@ function BookingDetailsPage() {
         //     .catch(err => console.log(err))
     }
 
+    // TODO: MOVER A UTILS
     const stringToDate = (timestamp) => {
 
         const timestampParts = timestamp?.split(" ")
@@ -59,20 +61,7 @@ function BookingDetailsPage() {
 
     }
 
-    const monthNames = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December"
-    ]
+    const monthNames = MONTH_STRINGS
 
     let parsedDate
     if (booking.bookingDate) {

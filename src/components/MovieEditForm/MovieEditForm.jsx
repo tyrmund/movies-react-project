@@ -16,8 +16,7 @@ function MovieEditForm() {
     const loadMovie = () => {
         axios
             .get(`${API_URL}/movies/${movieId}`)
-            .then(({ data }) => {
-                const fullMovie = JSON.parse(JSON.stringify(data))
+            .then(({ data: fullMovie }) => {
                 setAwards(fullMovie.awards)
                 setMainCast(fullMovie.mainCast)
                 setMovieData({
@@ -90,9 +89,11 @@ function MovieEditForm() {
 
         event.preventDefault()
 
-        const fullMovie = JSON.parse(JSON.stringify(movieData))
-        fullMovie.mainCast = JSON.parse(JSON.stringify(mainCast))
-        fullMovie.awards = JSON.parse(JSON.stringify(awards))
+        const fullMovie = {
+            ...movieData,
+            mainCast,
+            awards
+        }
 
         axios
             .put(`${API_URL}/movies/${movieId}`, fullMovie)
