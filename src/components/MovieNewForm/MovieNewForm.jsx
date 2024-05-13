@@ -71,7 +71,7 @@ function MovieNewForm() {
     axios
       .post(`${API_URL}/movies`, newMovie)
       .then(() => {
-        console.log(`Creando ${newMovie.title}!`)
+        alert(`Creando ${newMovie.title}!`)
         navigate('/')
       })
       .catch(err => console.log(err))

@@ -8,6 +8,7 @@ import MovieNewPage from './../pages/MovieNewPage/MovieNewPage'
 import BookingsListPage from './../pages/BookingsListPage/BookingsListPage'
 import BookingNewPage from './../pages/BookingNewPage/BookingNewPage'
 import BookingDetailsPage from './../pages/BookingDetailsPage/BookingDetailsPage'
+import BookingEditPage from '../pages/BookingEditPage/BookingEditPage'
 import NotFoundPage from './../pages/NotFoundPage/NotFoundPage'
 
 const AppRoutes = () => {
@@ -22,8 +23,8 @@ const AppRoutes = () => {
       <Route path={'/movies/new'} element={<MovieNewPage />} />
       <Route path={'/bookings'} element={<BookingsListPage />} />
       <Route path={'/bookings/:bookingId'} element={<BookingDetailsPage />} />
-      {/* <Route path={'/bookings/edit/:bookingId'} element={<BookingEditPage />} /> */}
-      <Route path={'/bookings/new'} element={<BookingNewPage />} />
+      <Route path={'/bookings/edit/:bookingId'} element={<BookingEditPage />} />
+      <Route path={'/bookings/new/:movieId'} element={<BookingNewPage />} />
       <Route path={'/*'} element={<NotFoundPage />} />
     </Routes>
   )

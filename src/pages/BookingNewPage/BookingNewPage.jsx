@@ -1,14 +1,20 @@
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Col, Container, Row, Form, Button } from "react-bootstrap"
-import { useNavigate } from "react-router-dom"
-import Calendar from "react-calendar"
+import { useNavigate, useParams } from "react-router-dom"
 import 'react-calendar/dist/Calendar.css'
+import DateRangePicker from '@wojtekmaj/react-daterange-picker'
+import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import { getDaysBooking } from "../../utils/booking.utils"
+
 
 const API_URL = "http://localhost:5000"
 
 
 function BookingNewPage() {
+
+  const { movieId } = useParams()
 
   const navigate = useNavigate()
 
@@ -18,13 +24,30 @@ function BookingNewPage() {
     bookingDate: 0
   })
 
-  const [chosenMovie, setChosenMovie] = useState()
+  const [chosenMovie, setChosenMovie] = useState({
+    title: '',
 
-  const [date, setDate] = useState(new Date())
+  })
+
+  useEffect(() => {
+    loadChosenMovie()
+  }, [])
+
+  const loadChosenMovie = () => {
+    axios
+      .get(`${API_URL}/movies/${movieId}`)
+      .then(({ data }) => setChosenMovie(data))
+      .catch(err => console.log(err))
+  }
+
+  const [date, setDate] = useState([new Date(), new Date()])
+
 
   const handleDateChange = newDate => {
     setDate(newDate)
+    setBookingData({ ...bookingData, daysBooked: Math.ceil(getDaysBooking(newDate)), bookingDate: date[0] })
   }
+
 
   const handleInputChange = e => {
     const { name, value } = e.target
@@ -33,21 +56,22 @@ function BookingNewPage() {
 
   const handleBookingFormSubmit = e => {
     e.preventDefault()
-    axios
-      .post(`${API_URL}/bookings`, bookingData)
-      .then(() => navigate('/bookings'))
-      .catch(err => console.log(err))
+
+    console.log(bookingData)
+    // axios
+    //   .post(`${API_URL}/bookings`, bookingData)
+    //   .then(() => navigate('/bookings'))
+    //   .catch(err => console.log(err))
   }
 
   return (
     <div className="BookingNewPage mt-3">
       <Container>
         <Row>
-
-          <Col md={{ span: 5, offset: 3 }}>
-            <h2></h2>
+          <Col md={{ span: 5, offset: 3 }} className="shadow-lg mx-auto d-block rounded p-3 m-3">
             <Form onSubmit={handleBookingFormSubmit}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label className="d-block text-center">Booked Movie: {chosenMovie.title} </Form.Label>
                 <Form.Label>Name: </Form.Label>
                 <Form.Control
                   type="text"
@@ -57,19 +81,11 @@ function BookingNewPage() {
                   onChange={handleInputChange} />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Amount of days: </Form.Label>
-                <Form.Control
-                  type="number"
-                  name="daysBooked"
-                  value={bookingData.daysBooked}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
-              <Calendar
-                onChange={handleDateChange}
-                value={date} />
-              <Button variant="primary" type="submit">
+              <Container className="text-center">
+                <DateRangePicker onChange={handleDateChange} value={date} />
+              </Container>
+
+              <Button className='d-block mt-3 mx-auto' variant="primary" type="submit">
                 Submit
               </Button>
             </Form>

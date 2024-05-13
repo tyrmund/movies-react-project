@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom"
 import { Container, Row, Col, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import './MovieDetailsPage.css'
+import { getRatingColor } from "../../utils/movie.utils"
+
 
 const API_URL = "http://localhost:5000"
 
@@ -11,6 +13,11 @@ const API_URL = "http://localhost:5000"
 function MovieDetailsPage() {
 
   const [movie, setMovie] = useState()
+
+  let ratingColor = ''
+  if (movie) {
+    ratingColor = getRatingColor(movie.rating)
+  }
 
   const { movieId } = useParams()
 
@@ -25,13 +32,6 @@ function MovieDetailsPage() {
       .catch(err => console.log(err))
   }
 
-  let ratingColor = ''
-  if (movie) {
-    if (movie.rating > 8.5) ratingColor = 'bg-success'
-    else if (movie.rating > 7) ratingColor = 'bg-info'
-    else if (movie.rating > 4) ratingColor = 'bg-warning'
-    else ratingColor = 'bg-danger'
-  }
 
   const deleteMovie = (id) => {
     axios
@@ -64,23 +64,26 @@ function MovieDetailsPage() {
                       <p>{movie.releaseYear} | {movie.genre} | {movie.runningTime} mins</p>
                       <p>Distributed by: {movie.distributor}</p>
                       <p>Director: {movie.director}</p>
-                      <p>Main cast: {movie.mainCast}</p>
+                      <p className="d-inline">Main cast: </p>
+                      {movie.mainCast.map((eachActor, index) => {
+                        return <p className="d-inline" key={index}> {eachActor} </p>
+                      })}
                       <p className="description-text">Description:</p>
                       <p className="description-paragraph">{movie.description}</p>
                       <p>Awards: {movie.awards[0].name} in {movie.awards[0].category}, {movie.awards[0].year}</p>
 
                       <div className="btns-movie mt-3">
                         <Link to={`/movies/edit/${movieId}`} style={{ textDecoration: 'none' }}>
-                          <Button variant="secondary">Edit</Button>{' '}
+                          <Button variant="secondary mr-3">Edit</Button>{' '}
                         </Link>
 
                         <Link to={`/movies`} style={{ textDecoration: 'none' }}>
-                          <Button variant="danger">Delete</Button>{' '}
+                          <Button variant="danger mr-3">Delete</Button>{' '}
                         </Link>
                         <br />
 
-                        <Link to={`/bookings/new`} style={{ textDecoration: 'none', marginTop: '5px' }}>
-                          <Button variant="primary">Book movie</Button>{' '}
+                        <Link to={`/bookings/new/${movieId}`} style={{ textDecoration: 'none', marginTop: '5px' }} >
+                          <Button variant="primary mt-3">Book movie</Button>{' '}
                         </Link>
                       </div>
 
