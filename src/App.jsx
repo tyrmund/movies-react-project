@@ -1,6 +1,7 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Routes, Route } from 'react-router-dom'
+import Calendar from 'react-calendar'
 import NavBar from './components/NavBar/NavBar'
 import HomePage from './pages/HomePage/HomePage'
 import AboutPage from './pages/AboutPage/AboutPage'
@@ -10,6 +11,8 @@ import MovieEditPage from './pages/MovieEditPage/MovieEditPage'
 import MovieNewPage from './pages/MovieNewPage/MovieNewPage'
 import BookingsListPage from './pages/BookingsListPage/BookingsListPage'
 import BookingNewPage from './pages/BookingNewPage/BookingNewPage'
+import BookingDetailsPage from './pages/BookingDetailsPage/BookingDetailsPage'
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 
 function App() {
 
@@ -25,7 +28,7 @@ function App() {
         <Route path={'/movies/new'} element={<MovieNewPage />} />
         <Route path={'/bookings'} element={<BookingsListPage />} />
         <Route path={'/bookings/:bookingId'} element={<BookingDetailsPage />} />
-        {/* <Route path={'/bookings/edit/:bookingId'} element={<BookingEditPage />} /> */}
+        {/*<Route path={'/bookings/edit/:bookingId'} element={<BookingEditPage />} /> */}
         <Route path={'/bookings/new'} element={<BookingNewPage />} />
         <Route path={'/*'} element={<NotFoundPage />} />
       </Routes>
