@@ -24,19 +24,19 @@ function MoviesList() {
   const deleteMovie = (id) => {
     axios
       .delete(`${API_URL}/movies/${id}`)
-      .then(loadAllMovies())
+      .then(() => loadAllMovies())
       .catch(err => console.log(err))
   }
 
   return (
     <div className='MoviesList'>
-      <Container>
-        <Row className="justify-content-center">
-          {movies.map((movie) =>
+      <Row className="justify-content-center">
+        {
+          movies.map((movie) =>
             <Col
-              key={movie.id} md={4}
-              className="shadow-lg p-3 bg-white rounded m-3"
-              style={{ minWidth: '350px' }}>
+              key={movie.id}
+              md={{ span: 4 }}
+              className="shadow-lg p-3 bg-white rounded m-3">
               <Link
                 style={{ textDecoration: 'none', color: 'black' }}
                 to={`/movies/${movie.id}`}
@@ -44,9 +44,9 @@ function MoviesList() {
                 <MovieCard {...movie} />
               </Link>
             </Col>
-          )}
-        </Row>
-      </Container>
+          )
+        }
+      </Row>
     </div>
   )
 }

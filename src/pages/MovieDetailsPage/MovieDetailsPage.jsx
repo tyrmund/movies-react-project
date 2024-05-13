@@ -26,7 +26,7 @@ function MovieDetailsPage() {
   }
 
   let ratingColor = ''
-  if (movie !== undefined) {
+  if (movie) {
     if (movie.rating > 8.5) ratingColor = 'bg-success'
     else if (movie.rating > 7) ratingColor = 'bg-info'
     else if (movie.rating > 4) ratingColor = 'bg-warning'
