@@ -1,31 +1,32 @@
 import { getRatingColor } from "../../utils/movie.utils"
+import { Card, Button } from "react-bootstrap"
+import './MovieCard.css'
 
-function MovieCard({ id, title, image, director, rating }) {
+function MovieCard({ title, image, genre, director, rating }) {
 
   const ratingColor = getRatingColor(rating)
 
   return (
     <div className="MovieCard mt-5">
-      <img
-        src={image}
-        alt={title}
-        className="w-auto h-100 mx-auto d-block rounded"
-        style={{ maxHeight: '400px' }} />
-      <div className="MovieCardInfo">
-        <h1 className="text-center mt-3 mb-3 fs-3">{title}</h1>
-        <p className="text-center fs-6"><b>Director:</b> {director}</p>
-        <p
-          className={`text-center fs-6 rounded ${ratingColor}`}
-          style={{
-            color: 'white',
-            display: 'inline-block',
-            padding: '3px',
-            width: '100px',
-            marginLeft: 'calc(50% - 50px)'
-          }}>
-          <b>Rating:</b> {rating}
-        </p>
-      </div>
+      <Card className="shadow-lg">
+        <Card.Img variant="top" src={image} alt={title} />
+        <Card.Body>
+          <Card.Title>{title}</Card.Title>
+          <Card.Text>
+            <b>Director:</b> {director}
+          </Card.Text>
+          <Card.Subtitle
+            style={{ color: 'white' }}
+            className="mb-2 bg-secondary rounded p-1 opacity-75 d-inline">
+            Genre: {genre}
+          </Card.Subtitle>
+          <Card.Text
+            style={{ color: 'white' }}
+            className={`rating ${ratingColor} p-1 m-2 rounded d-inline`}>
+            Rating: {rating}
+          </Card.Text>
+        </Card.Body>
+      </Card >
     </div>
   )
 
