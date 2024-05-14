@@ -11,14 +11,17 @@ export const getDaysBooking = ([date1, date2]) => {
 }
 
 export const isValidBookingDate = ([date1, date2], bookedDate, daysBooked) => {
-  const date1Mili = date1.getTime()
-  const date2Mili = date2.getTime()
-  const bookedDateMili = bookedDate.getTime()
-  const daysBookedMili = bookedDate.getTime() + (daysBooked * 1000 * 360 * 24)
 
-  if (date2Mili < bookedDateMili || daysBookedMili < date1Mili) { }
+  const requestedFrom = date1.getTime()
+  const requestedTo = date2.getTime()
 
+  const bookedFrom = bookedDate.getTime()
+  const bookedTo = bookedDate.setDate(bookedDate.getDate() + daysBooked) - 3600001
+
+  return bookedFrom > requestedTo || bookedTo < requestedFrom
 }
+
+
 export const stringToDate = (timestamp) => {
 
   const timestampParts = timestamp?.split(" ")

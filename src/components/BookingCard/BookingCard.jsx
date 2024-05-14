@@ -20,7 +20,6 @@ function BookingCard({ fullName, bookingDate, daysBooked, movieId }) {
       .catch(err => console.log(err))
   }
 
-  console.log(movie)
 
   return (
     <div className="BookingCard mb-4">
@@ -28,8 +27,8 @@ function BookingCard({ fullName, bookingDate, daysBooked, movieId }) {
         <Row>
           <Col className='md-8 d-flex align-items-center'>
             <Card.Body>
-              <Card.Title>{fullName}</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">Movie: {movie.title}</Card.Subtitle>
+              <Card.Title>Movie: {movie.title}</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted">By: {fullName}</Card.Subtitle>
               <Card.Subtitle className="mb-2 text-muted">Booked for: {daysBooked} days</Card.Subtitle>
             </Card.Body>
           </Col>

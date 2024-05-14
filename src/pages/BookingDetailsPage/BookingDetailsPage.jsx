@@ -42,10 +42,10 @@ function BookingDetailsPage() {
   const handleDeleteButton = () => {
 
     setShowToast(true)
-    // axios
-    //     .delete(`${API_URL}/bookings/${bookingId}`)
-    //     .then(navigate('/bookings'))
-    //     .catch(err => console.log(err))
+    axios
+    // .delete(`${API_URL}/bookings/${bookingId}`)
+    // .then(navigate('/bookings'))
+    // .catch(err => console.log(err))
   }
 
   const monthNames = MONTH_STRINGS
@@ -74,7 +74,7 @@ function BookingDetailsPage() {
             <hr className="w-50" style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 10)' }} />
             <p className="mt-5"><b>Name of borrower:</b> {booking.fullName}</p>
             <p><b>Movie booked:</b> {movie?.title}</p>
-            <p><b>Date of booking:</b> {parsedDate?.getDate()} {monthNames[parsedDate?.getMonth()]}, {parsedDate?.getFullYear()} </p>
+            <p><b>Date of booking:</b> {booking.bookingDate} </p>
             <p style={{ fontStyle: 'italic', color: 'red' }}>Movie booked for {booking.daysBooked} days</p>
           </Col>
         </Row>
