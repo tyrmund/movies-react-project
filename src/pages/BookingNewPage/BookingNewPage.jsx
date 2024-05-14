@@ -66,6 +66,10 @@ function BookingNewPage() {
         const formattedDate = stringToDate(eachBooking.bookingDate)
         const date1 = date[0]
         const date2 = date[1]
+
+        console.log('date1:', date1, '---', 'date2:', date2)
+        console.log('formattedDate:', formattedDate, '---', 'daysBooked:', eachBooking.daysBooked)
+
         if (isValidBookingDate([date1, date2], formattedDate, eachBooking.daysBooked)) {
           return acc && true
         } else {
