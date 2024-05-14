@@ -33,7 +33,7 @@ function BookingCard({ fullName, bookingDate, daysBooked, movieId }) {
             </Card.Body>
           </Col>
           <Col className='md-4'>
-            <Card.Img variant="top" src={movie.image} alt={movie.title} rounded={false} />
+            <Card.Img variant="top" src={movie.image} alt={movie.title} />
           </Col>
         </Row>
       </Card>

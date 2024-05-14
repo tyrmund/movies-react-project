@@ -42,10 +42,10 @@ function BookingDetailsPage() {
   const handleDeleteButton = () => {
 
     setShowToast(true)
-    axios
-    // .delete(`${API_URL}/bookings/${bookingId}`)
-    // .then(navigate('/bookings'))
-    // .catch(err => console.log(err))
+    // axios
+    //   .delete(`${API_URL}/bookings/${bookingId}`)
+    //   .then(navigate('/bookings'))
+    //   .catch(err => console.log(err))
   }
 
   const monthNames = MONTH_STRINGS
