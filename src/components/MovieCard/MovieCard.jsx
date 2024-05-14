@@ -18,7 +18,7 @@ function MovieCard({ title, image, genre, director, rating }) {
           <Card.Subtitle
             style={{ color: 'white' }}
             className="mb-2 bg-secondary rounded p-1 opacity-75 d-inline">
-            Genre: {genre}
+            {genre}
           </Card.Subtitle>
           <Card.Text
             style={{ color: 'white' }}

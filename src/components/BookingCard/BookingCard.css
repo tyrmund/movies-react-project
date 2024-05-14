@@ -1,0 +1,5 @@
+.BookingCard img {
+    height: 120px;
+    object-fit: cover;
+    border-radius: 0 5px 5px 0;
+}

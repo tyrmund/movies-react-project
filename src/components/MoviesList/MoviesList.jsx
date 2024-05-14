@@ -35,7 +35,7 @@ function MoviesList() {
           movies.map((movie) =>
             <Col
               key={movie.id}
-              md={{ span: 4 }}
+              md={{ span: 3 }}
               className="p-3 bg-white rounded m-3">
               <Link
                 style={{ textDecoration: 'none', color: 'black' }}

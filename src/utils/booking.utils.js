@@ -17,15 +17,17 @@ export const isValidBookingDate = ([date1, date2], bookedDate, daysBooked) => {
   const daysBookedMili = bookedDate.getTime() + (daysBooked * 1000 * 360 * 24)
 
   if (date2Mili < bookedDateMili || daysBookedMili < date1Mili) { }
-  export const stringToDate = (timestamp) => {
 
-    const timestampParts = timestamp?.split(" ")
-    const day = timestampParts[2]
-    const month = timestampParts[1]
-    const year = timestampParts[3]
-    const time = timestampParts[4]
+}
+export const stringToDate = (timestamp) => {
 
-    const newDate = new Date(`${month} ${day}, ${year} ${time}`)
-    return newDate
+  const timestampParts = timestamp?.split(" ")
+  const day = timestampParts[2]
+  const month = timestampParts[1]
+  const year = timestampParts[3]
+  const time = timestampParts[4]
 
-  }
+  const newDate = new Date(`${month} ${day}, ${year} ${time}`)
+  return newDate
+
+}

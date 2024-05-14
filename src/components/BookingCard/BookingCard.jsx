@@ -1,13 +1,42 @@
-import { Card } from "react-bootstrap"
+import { Card, Row, Col } from "react-bootstrap"
+import axios from "axios"
+import { useEffect, useState } from "react"
+import './BookingCard.css'
 
-function BookingCard({ fullName, bookingDate, daysBooked, }) {
+const API_URL = "http://localhost:5000"
+
+function BookingCard({ fullName, bookingDate, daysBooked, movieId }) {
+
+  const [movie, setMovie] = useState({})
+
+  useEffect(() => {
+    getMovie()
+  }, [])
+
+  const getMovie = () => {
+    axios
+      .get(`${API_URL}/movies/${movieId}`)
+      .then(({ data }) => setMovie(data))
+      .catch(err => console.log(err))
+  }
+
+  console.log(movie)
+
   return (
     <div className="BookingCard mb-4">
       <Card>
-        <Card.Body>
-          <Card.Title>{fullName}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">Booked for: {daysBooked} days</Card.Subtitle>
-        </Card.Body>
+        <Row>
+          <Col className='md-8 d-flex align-items-center'>
+            <Card.Body>
+              <Card.Title>{fullName}</Card.Title>
+              <Card.Subtitle className="mb-2 text-muted">Movie: {movie.title}</Card.Subtitle>
+              <Card.Subtitle className="mb-2 text-muted">Booked for: {daysBooked} days</Card.Subtitle>
+            </Card.Body>
+          </Col>
+          <Col className='md-4'>
+            <Card.Img variant="top" src={movie.image} alt={movie.title} rounded={false} />
+          </Col>
+        </Row>
       </Card>
     </div>
   )

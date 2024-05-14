@@ -8,7 +8,7 @@ import MovieNewPage from './../pages/MovieNewPage/MovieNewPage'
 import BookingsListPage from './../pages/BookingsListPage/BookingsListPage'
 import BookingNewPage from './../pages/BookingNewPage/BookingNewPage'
 import BookingDetailsPage from './../pages/BookingDetailsPage/BookingDetailsPage'
-import BookingEditPage from '../pages/BookingEditPage/BookingEditPage'
+import BookingEditPage from './../pages/BookingEditPage/BookingEditPage'
 import NotFoundPage from './../pages/NotFoundPage/NotFoundPage'
 
 const AppRoutes = () => {
