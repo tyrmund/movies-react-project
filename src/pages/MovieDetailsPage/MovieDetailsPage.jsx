@@ -42,19 +42,16 @@ function MovieDetailsPage() {
 
   return (
     <div className="MovieDetailsPage">
-      <Container className="mt-5 mx-auto d-block p-5" style={{
-        maxWidth: '1000px', margin: '20px', border: '1px solid rgba(239, 239, 240, 0.9)',
-        borderRadius: '10px', boxShadow: '2px 2px 2px 1px gainsboro'
-      }}>
+      <Container className="mt-5">
         <Row className="mb-5">
           {
             movie && (
               <>
-                <Col md={{ span: 5 }}>
-                  <img src={movie.image} alt={movie.title} className="m-5 rounded" />
+                <Col md={{ span: 4, offset: 1 }}>
+                  <img src={movie.image} alt={movie.title} className="rounded" />
                 </Col>
 
-                <Col md={{ span: 6, offset: 1 }}>
+                <Col md={{ span: 6 }}>
                   <div className="detail-info">
                     <div className="title-movie-info">
 
@@ -65,15 +62,15 @@ function MovieDetailsPage() {
                     <div className="text-movie-info">
 
                       <p>{movie.releaseYear} | {movie.genre} | {movie.runningTime} mins</p>
-                      <p><b>Distributed by:</b> {movie.distributor}</p>
-                      <p><b>Director:</b> {movie.director}</p>
-                      <p className="d-inline"><b>Main cast:</b> </p>
+                      <p>Distributed by: {movie.distributor}</p>
+                      <p>Director: {movie.director}</p>
+                      <p className="d-inline">Main cast: </p>
                       {movie.mainCast.map((eachActor, index) => {
                         return <p className="d-inline" key={index}> {eachActor} </p>
                       })}
-                      <p className="description-text"><b>Description:</b></p>
+                      <p className="description-text">Description:</p>
                       <p className="description-paragraph">{movie.description}</p>
-                      <p><b>Awards:</b> {movie.awards[0].name} in {movie.awards[0].category}, {movie.awards[0].year}</p>
+                      <p>Awards: {movie.awards[0].name} in {movie.awards[0].category}, {movie.awards[0].year}</p>
 
                       <div className="btns-movie mt-3">
                         <Link to={`/movies/edit/${movieId}`} style={{ textDecoration: 'none' }}>
