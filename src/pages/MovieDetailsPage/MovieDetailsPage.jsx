@@ -50,11 +50,11 @@ function MovieDetailsPage() {
           {
             movie && (
               <>
-                <Col md={{ span: 5 }}>
-                  <img src={movie.image} alt={movie.title} className="m-5 rounded" />
+                <Col md={{ span: 4, offset: 1 }}>
+                  <img src={movie.image} alt={movie.title} className="rounded" />
                 </Col>
 
-                <Col md={{ span: 6, offset: 1 }}>
+                <Col md={{ span: 6 }}>
                   <div className="detail-info">
                     <div className="title-movie-info">
 
@@ -73,9 +73,9 @@ function MovieDetailsPage() {
                           return <p className="d-inline" key={index}> {eachActor}, </p>
                         else return <p className="d-inline" key={index}> {eachActor}. </p>
                       })}
-                      <p className="description-text"><b>Description:</b></p>
+                      <p className="description-text">Description:</p>
                       <p className="description-paragraph">{movie.description}</p>
-                      <p><b>Awards:</b> {movie.awards[0].name} in {movie.awards[0].category}, {movie.awards[0].year}</p>
+                      <p>Awards: {movie.awards[0].name} in {movie.awards[0].category}, {movie.awards[0].year}</p>
 
                       <div className="btns-movie mt-3">
                         <Link to={`/movies/edit/${movieId}`} style={{ textDecoration: 'none' }}>

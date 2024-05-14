@@ -26,11 +26,11 @@ function HomePage() {
     return (
         <div className="HomePage bg-light">
             <Container className='mt-5 mx-auto'>
-                <h1 className='text-center mt-5'>Bienvenido a Ironbuster</h1>
+                <h1 className='text-center mt-5'>Welcome to Ironbuster</h1>
                 <h2
                     className='text-center mt-5'
                     style={{ fontSize: '15px', fontStyle: 'italic' }}
-                >La colección de películas más grande de Ironhack Matadero
+                >The greatest movie collection of Ironhack Matadero
                 </h2>
                 <div className='shadow-lg p-3 mb-5 bg-white rounded'>
                     <Link to={`/movies/${poster.id}`}>
@@ -41,7 +41,7 @@ function HomePage() {
                         />
                     </Link>
                     <p className='text-center font-italic mt-3'>
-                        Actualmente disponible en nuestro catálogo
+                        Suggested for you
                     </p>
                 </div>
             </Container>
