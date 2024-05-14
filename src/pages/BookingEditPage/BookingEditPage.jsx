@@ -12,9 +12,12 @@ function BookingEditPage() {
 
   const [bookingData, setBookingData] = useState({
     fullName: '',
-    daysBooked: '',
-    bookingDate: 0
+    daysBooked: 0,
+    bookingDate: '',
+    movieId: 0
   })
+
+  const [chosenMovie, setChosenMovie] = useState({})
 
   const { bookingId } = useParams()
 
@@ -22,25 +25,54 @@ function BookingEditPage() {
 
   const [date, setDate] = useState([new Date(), new Date()])
 
-  const handleDateChange = newDate => {
-    setDate(newDate)
-  }
 
   useEffect(() => {
     loadBooking()
   }, [])
 
+  const loadDate = (bookingDate, daysBooked) => {
+
+    //const returnDate = new Date(bookingDate.getTime() + (daysBooked * 3600000 * 24))
+    setDate([
+      bookingDate,
+      bookingDate
+    ])
+  }
+
   const loadBooking = () => {
 
     axios
       .get(`${API_URL}/bookings/${bookingId}`)
-      .then(({ data }) => setBookingData(data))
-      .catch(err => console.log(err))
+      .then(({ data }) => {
+        setBookingData(data)
+        loadMovie(data.movieId)
+        loadDate(data.bookingDate, data.daysBooked)
 
+      })
+
+      .catch(err => console.log(err))
+  }
+
+
+  const loadMovie = (movieId) => {
+    if (movieId) {
+
+      axios
+        .get(`${API_URL}/movies/${movieId}`)
+        .then(({ data }) => setChosenMovie(data))
+        .catch(err => console.log(err))
+    }
+  }
+
+
+
+  const handleDateChange = newDate => {
+    setDate(newDate)
+    setBookingData({ ...bookingData, daysBooked: Math.ceil(getDaysBooking(newDate)), bookingDate: newDate[0].toString().substring(0, 15) })
   }
 
   const handleBookingEditChange = (event) => {
-    const { value, name } = event.target
+    const { name, value } = e.target
     setBookingData({ ...bookingData, [name]: value })
   }
 
@@ -58,10 +90,10 @@ function BookingEditPage() {
     <div className="BookingNewPage mt-3">
       <Container>
         <Row>
-          <Col md={{ span: 5, offset: 3 }}>
-            <h2></h2>
+          <Col md={{ span: 5, offset: 3 }} className="shadow-lg mx-auto d-block rounded p-3 m-3">
             <Form onSubmit={handleEditBookingSubmit}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label className="d-block text-center"><b>Booked Movie:</b> {chosenMovie.title} </Form.Label>
                 <Form.Label>Name: </Form.Label>
                 <Form.Control
                   type="text"
@@ -71,17 +103,11 @@ function BookingEditPage() {
                   onChange={handleBookingEditChange} />
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Amount of days: </Form.Label>
-                <Form.Control
-                  type="number"
-                  name="daysBooked"
-                  value={bookingData.daysBooked}
-                  onChange={handleBookingEditChange}
-                />
-              </Form.Group>
-              <DateRangePicker onChange={handleDateChange} value={date} />
-              <Button variant="primary" type="submit">
+              <Container className="text-center">
+                <DateRangePicker onChange={handleDateChange} value={date} />
+              </Container>
+
+              <Button className='d-block mt-3 mx-auto' variant="primary" type="submit">
                 Submit
               </Button>
             </Form>

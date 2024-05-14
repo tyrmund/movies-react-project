@@ -16,7 +16,7 @@ export const isValidBookingDate = ([date1, date2], bookedDate, daysBooked) => {
   const requestedTo = date2.getTime()
 
   const bookedFrom = bookedDate.getTime()
-  const bookedTo = bookedDate.setDate(bookedDate.getDate() + daysBooked) - 3600001
+  const bookedTo = bookedDate.setDate(bookedDate.getDate() + daysBooked)
 
   return bookedFrom > requestedTo || bookedTo < requestedFrom
 }
