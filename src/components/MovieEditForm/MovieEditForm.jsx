@@ -107,7 +107,7 @@ function MovieEditForm() {
 
   return (
     <div className="MovieEditForm mb-5">
-      <Container className="d-block mx-auto">
+      <Container className="d-block mx-auto shadow-lg rounded" style={{ backgroundColor: 'rgb(245, 245, 245)' }}>
 
         <Form className="mx-5" onSubmit={handleEditedMovieSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -120,137 +120,145 @@ function MovieEditForm() {
               onChange={handleMovieEditFormChange} />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label className="form-label">Movie Title</Form.Label>
-            <Form.Control
-              className="form-control"
-              type="text"
-              name="title"
-              value={movieData.title}
-              onChange={handleMovieEditFormChange} />
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label className="form-label">Year of Release</Form.Label>
-            <Form.Control
-              className="form-control"
-              type="text"
-              name="releaseYear"
-              value={movieData.releaseYear}
-              onChange={handleMovieEditFormChange} />
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label className="form-label">Director</Form.Label>
-            <Form.Control
-              className="form-control"
-              type="text"
-              name="director"
-              value={movieData.director}
-              onChange={handleMovieEditFormChange} />
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label className="form-label">Main Cast</Form.Label>
-            {mainCast.map((actor, index) => (
+          <Row className="mt-5">
+            <Form.Group as={Col} md={{ span: 5 }} className="mb-3">
+              <Form.Label className="form-label">Movie Title</Form.Label>
               <Form.Control
-                key={index}
                 className="form-control"
                 type="text"
-                name="actor"
-                placeholder="Actor's full name"
-                value={actor}
-                onChange={(event) => handleMainCastChange(event, index)} />
-            ))}
-            <Button
-              variant="primary"
-              onClick={addMainCastInput}
-              className="btn btn-secondary mb-3 opacity-50"
-              type="button">
-              Add More
-            </Button>
-          </Form.Group>
+                name="title"
+                value={movieData.title}
+                onChange={handleMovieEditFormChange} />
+            </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label className="form-label">Awards</Form.Label>
-            {awards.map((award, index) => (
-              <Form.Group className="mb-3" key={index}>
+            <Form.Group as={Col} md={{ span: 3 }} className="mb-3">
+              <Form.Label className="form-label">Year of Release</Form.Label>
+              <Form.Control
+                className="form-control"
+                type="text"
+                name="releaseYear"
+                value={movieData.releaseYear}
+                onChange={handleMovieEditFormChange} />
+            </Form.Group>
+
+            <Form.Group as={Col} md={{ span: 4 }} className="mb-3">
+              <Form.Label className="form-label">Director</Form.Label>
+              <Form.Control
+                className="form-control"
+                type="text"
+                name="director"
+                value={movieData.director}
+                onChange={handleMovieEditFormChange} />
+            </Form.Group>
+          </Row>
+
+          <Row className="mt-5">
+            <Form.Group as={Col} md={{ span: 5 }} className="mb-3">
+              <Form.Label className="form-label">Main Cast</Form.Label>
+              {mainCast.map((actor, index) => (
                 <Form.Control
+                  key={index}
                   className="form-control"
                   type="text"
-                  name="name"
-                  placeholder="Award name"
-                  value={award.name}
-                  onChange={(event) => handleAwardChange(event, index)} />
-                <Form.Control
-                  className="form-control"
-                  type="text"
-                  name="category"
-                  placeholder="Category"
-                  value={award.category}
-                  onChange={(event) => handleAwardChange(event, index)} />
-                <Form.Control
-                  className="form-control"
-                  type="number"
-                  name="year"
-                  placeholder="Year"
-                  value={award.year}
-                  onChange={(event) => handleAwardChange(event, index)} />
-              </Form.Group>
-            ))}
-            <Button
-              variant="primary"
-              onClick={addAwardsInput}
-              className="btn btn-secondary mb-3 opacity-50"
-              type="button">
-              Add More
-            </Button>
-          </Form.Group>
+                  name="actor"
+                  placeholder="Actor's full name"
+                  value={actor}
+                  onChange={(event) => handleMainCastChange(event, index)} />
+              ))}
+              <Button
+                variant="primary"
+                onClick={addMainCastInput}
+                className="btn btn-secondary mb-3 opacity-50 mt-3"
+                type="button">
+                Add More
+              </Button>
+            </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label className="form-label">Genre</Form.Label>
-            <Form.Control
-              className="form-control"
-              type="text"
-              name="genre"
-              value={movieData.genre}
-              onChange={handleMovieEditFormChange} />
-          </Form.Group>
+            <Form.Group as={Col} md={{ span: 7 }} className="mb-3">
+              <Form.Label className="form-label">Awards</Form.Label>
+              {awards.map((award, index) => (
+                <Form.Group className="mb-3" key={index}>
+                  <Form.Control
+                    className="form-control"
+                    type="text"
+                    name="name"
+                    placeholder="Award name"
+                    value={award.name}
+                    onChange={(event) => handleAwardChange(event, index)} />
+                  <Form.Control
+                    className="form-control"
+                    type="text"
+                    name="category"
+                    placeholder="Category"
+                    value={award.category}
+                    onChange={(event) => handleAwardChange(event, index)} />
+                  <Form.Control
+                    className="form-control"
+                    type="number"
+                    name="year"
+                    placeholder="Year"
+                    value={award.year}
+                    onChange={(event) => handleAwardChange(event, index)} />
+                </Form.Group>
+              ))}
+              <Button
+                variant="primary"
+                onClick={addAwardsInput}
+                className="btn btn-secondary mb-3 opacity-50"
+                type="button">
+                Add More
+              </Button>
+            </Form.Group>
+          </Row>
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label className="form-label">Distributor</Form.Label>
-            <Form.Control
-              className="form-control"
-              type="text"
-              name="distributor"
-              value={movieData.distributor}
-              onChange={handleMovieEditFormChange} />
-          </Form.Group>
+          <Row className="mt-5">
+            <Form.Group as={Col} md={{ span: 6 }} className="mb-3">
+              <Form.Label className="form-label">Genre</Form.Label>
+              <Form.Control
+                className="form-control"
+                type="text"
+                name="genre"
+                value={movieData.genre}
+                onChange={handleMovieEditFormChange} />
+            </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label className="form-label">Running Time in Minutes</Form.Label>
-            <Form.Control
-              className="form-control"
-              type="number"
-              name="runningTime"
-              value={movieData.runningTime}
-              onChange={handleMovieEditFormChange} />
-          </Form.Group>
+            <Form.Group as={Col} md={{ span: 6 }} className="mb-3">
+              <Form.Label className="form-label">Distributor</Form.Label>
+              <Form.Control
+                className="form-control"
+                type="text"
+                name="distributor"
+                value={movieData.distributor}
+                onChange={handleMovieEditFormChange} />
+            </Form.Group>
+          </Row>
 
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label className="form-label">Rating</Form.Label>
-            <Form.Control
-              className="form-control"
-              type="number"
-              min={0}
-              max={10}
-              step="0.1"
-              name="rating"
-              value={movieData.rating}
-              onChange={handleMovieEditFormChange} />
-          </Form.Group>
+          <Row className="mt-5">
+            <Form.Group as={Col} md={{ span: 2, offset: 4 }} className="mb-3">
+              <Form.Label className="form-label">Running Time</Form.Label>
+              <Form.Control
+                className="form-control"
+                type="time"
+                name="runningTime"
+                value={movieData.runningTime}
+                onChange={handleMovieEditFormChange} />
+            </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group as={Col} md={{ span: 2 }} className="mb-3">
+              <Form.Label className="form-label">Rating</Form.Label>
+              <Form.Control
+                className="form-control"
+                type="number"
+                min={0}
+                max={10}
+                step="0.1"
+                name="rating"
+                value={movieData.rating}
+                onChange={handleMovieEditFormChange} />
+            </Form.Group>
+          </Row>
+
+          <Form.Group className="mb-3 mt-5" controlId="formBasicPassword">
             <Form.Label>Description</Form.Label>
             <Form.Control
               type="text"

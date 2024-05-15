@@ -35,7 +35,9 @@ function MoviesList() {
           movies.map((movie) =>
             <Col
               key={movie.id}
+              sm={{ span: 8, offset: 2 }}
               md={{ span: 4 }}
+              lg={{ span: 3 }}
               className="p-3 bg-white rounded m-3">
               <Link
                 style={{ textDecoration: 'none', color: 'black' }}
