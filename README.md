@@ -4,10 +4,6 @@
 This is an URL guide for the Ironbuster App.
 
 
-# URL Reference
-
-Base URL: `http://localhost:5000/`
-
 ## Routes
 
 | Path                          | Description                    |

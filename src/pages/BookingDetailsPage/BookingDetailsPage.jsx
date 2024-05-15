@@ -5,7 +5,7 @@ import { Container, Row, Col, Button, Toast } from "react-bootstrap"
 import { MONTH_STRINGS } from "../../consts/data.consts"
 import { stringToDate } from "../../utils/booking.utils"
 
-const API_URL = 'http://localhost:5000'
+const API_URL = import.meta.env.VITE_API_URL
 
 function BookingDetailsPage() {
 

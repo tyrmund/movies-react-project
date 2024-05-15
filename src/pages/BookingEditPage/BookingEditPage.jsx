@@ -3,10 +3,11 @@ import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { Col, Container, Row, Form, Button } from "react-bootstrap"
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
+import { getDaysBooking } from "../../utils/booking.utils"
 
 
+const API_URL = import.meta.env.VITE_API_URL
 
-const API_URL = "http://localhost:5000"
 
 function BookingEditPage() {
 
@@ -25,19 +26,14 @@ function BookingEditPage() {
 
   const [date, setDate] = useState([new Date(), new Date()])
 
+  const [validated, setValidated] = useState(false)
+
+
 
   useEffect(() => {
     loadBooking()
   }, [])
 
-  const loadDate = (bookingDate, daysBooked) => {
-
-    //const returnDate = new Date(bookingDate.getTime() + (daysBooked * 3600000 * 24))
-    setDate([
-      bookingDate,
-      bookingDate
-    ])
-  }
 
   const loadBooking = () => {
 
@@ -47,12 +43,23 @@ function BookingEditPage() {
         setBookingData(data)
         loadMovie(data.movieId)
         loadDate(data.bookingDate, data.daysBooked)
-
       })
-
-      .catch(err => console.log(err))
+      .catch(err => console.log('OMG LA HEMOS LIADO', err))
   }
 
+  const loadDate = (bookingDate, daysBooked) => {
+
+    if (bookingDate, daysBooked) {
+
+      const bookingDateObj = new Date(bookingDate)
+      const returnDate = new Date(bookingDateObj.getTime() + ((daysBooked * 3600000 * 24) - 1))
+
+      setDate([
+        bookingDate,
+        returnDate
+      ])
+    }
+  }
 
   const loadMovie = (movieId) => {
     if (movieId) {
@@ -64,14 +71,12 @@ function BookingEditPage() {
     }
   }
 
-
-
   const handleDateChange = newDate => {
     setDate(newDate)
     setBookingData({ ...bookingData, daysBooked: Math.ceil(getDaysBooking(newDate)), bookingDate: newDate[0].toString().substring(0, 15) })
   }
 
-  const handleBookingEditChange = (event) => {
+  const handleBookingEditChange = (e) => {
     const { name, value } = e.target
     setBookingData({ ...bookingData, [name]: value })
   }
@@ -79,10 +84,23 @@ function BookingEditPage() {
   const handleEditBookingSubmit = e => {
     e.preventDefault()
 
-    axios
-      .put(`${API_URL}/bookings/${bookingId}`, bookingData)
-      .then(navigate('/bookings'))
-      .catch(err => console.log(err))
+
+    const form = e.currentTarget
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setValidated(true)
+
+
+    if (form.checkValidity() === true) {
+
+      axios
+        .put(`${API_URL}/bookings/${bookingId}`, bookingData)
+        .then(navigate('/bookings'))
+        .catch(err => console.log(err))
+    }
+
 
   }
 
@@ -91,17 +109,22 @@ function BookingEditPage() {
       <Container>
         <Row>
           <Col md={{ span: 5, offset: 3 }} className="shadow-lg mx-auto d-block rounded p-3 m-3">
-            <Form onSubmit={handleEditBookingSubmit}>
+            <Form noValidate validated={validated} onSubmit={handleEditBookingSubmit}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label className="d-block text-center"><b>Booked Movie:</b> {chosenMovie.title} </Form.Label>
                 <Form.Label>Name: </Form.Label>
                 <Form.Control
+                  required
                   type="text"
                   placeholder="Enter name"
                   name="fullName"
                   value={bookingData.fullName}
                   onChange={handleBookingEditChange} />
+                <Form.Control.Feedback type="invalid">
+                  Please enter a name.
+                </Form.Control.Feedback>
               </Form.Group>
+
 
               <Container className="text-center">
                 <DateRangePicker onChange={handleDateChange} value={date} />

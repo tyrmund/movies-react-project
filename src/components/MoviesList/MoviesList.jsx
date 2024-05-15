@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { Container, Row, Col } from "react-bootstrap"
 import MovieCard from "../MovieCard/MovieCard"
 
-const API_URL = "http://localhost:5000"
+const API_URL = import.meta.env.VITE_API_URL
 
 function MoviesList() {
 
