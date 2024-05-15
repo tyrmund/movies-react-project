@@ -99,12 +99,17 @@ function MovieNewForm() {
 
     setValidated(true)
 
-    // axios
-    //   .post(`${API_URL}/movies`, newMovie)
-    //   .then(() => {
-    //     navigate('/')
-    //   })
-    //   .catch(err => console.log(err))
+    if (form.checkValidity() === true) {
+      event.preventDefault()
+
+      console.log(createdMovie)
+      axios
+        .post(`${API_URL}/movies`, createdMovie)
+        .then(() => {
+          navigate('/')
+        })
+        .catch(err => console.log(err))
+    }
   }
 
   return (

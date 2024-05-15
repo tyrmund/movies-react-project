@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { Container, Row, Col, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import './MovieDetailsPage.css'
@@ -21,6 +21,8 @@ function MovieDetailsPage() {
 
   const { movieId } = useParams()
 
+  const navigate = useNavigate()
+
   useEffect(() => {
     getOneMovie()
   }, [])
@@ -36,7 +38,7 @@ function MovieDetailsPage() {
   const deleteMovie = (id) => {
     axios
       .delete(`${API_URL}/movies/${id}`)
-      .then(getOneMovie())
+      .then(navigate('/movies'))
       .catch(err => console.log(err))
   }
 
@@ -50,7 +52,7 @@ function MovieDetailsPage() {
           {
             movie && (
               <>
-                <Col md={{ span: 4, offset: 1 }}>
+                <Col md={{ span: 5, offset: 1 }}>
                   <img src={movie.image} alt={movie.title} className="rounded" />
                 </Col>
 
@@ -68,14 +70,15 @@ function MovieDetailsPage() {
                       <p><b>Distributed by:</b> {movie.distributor}</p>
                       <p><b>Director:</b> {movie.director}</p>
                       <p className="d-inline"><b>Main cast:</b> </p>
+                      {console.log(movie)}
                       {movie.mainCast.map((eachActor, index, arr) => {
                         if (index < arr.length - 1)
                           return <p className="d-inline" key={index}> {eachActor}, </p>
                         else return <p className="d-inline" key={index}> {eachActor}. </p>
                       })}
+                      <p><b>Awards:</b> {movie.awards[0].name} in {movie.awards[0].category}, {movie.awards[0].year}</p>
                       <p className="description-text">Description:</p>
                       <p className="description-paragraph">{movie.description}</p>
-                      <p>Awards: {movie.awards[0].name} in {movie.awards[0].category}, {movie.awards[0].year}</p>
 
                       <div className="btns-movie mt-3">
                         <Link to={`/movies/edit/${movieId}`} style={{ textDecoration: 'none' }}>
@@ -83,7 +86,7 @@ function MovieDetailsPage() {
                         </Link>
 
                         <Link to={`/movies`} style={{ textDecoration: 'none' }}>
-                          <Button variant="danger mr-3">Delete</Button>{' '}
+                          <Button onClick={() => deleteMovie(movieId)} variant="danger mr-3">Delete</Button>{' '}
                         </Link>
                         <br />
 
