@@ -1,11 +1,14 @@
 import { Row, Col, Form, ListGroup } from "react-bootstrap"
 import { useState } from "react"
 import axios from "axios"
+import { Link } from "react-router-dom"
 
 const API_URL = import.meta.env.VITE_API_URL
 
 
 const SearchBar = () => {
+
+
 
   const [searchQuery, setSearchQuery] = useState('')
   const [movieResults, setMovieResults] = useState([])
@@ -49,7 +52,9 @@ const SearchBar = () => {
           movieResults.map(elm => {
             return (
               <ListGroup.Item>
-                {elm.title}
+                <Link to={`/movies/${elm.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+                  {elm.title}
+                </Link>
               </ListGroup.Item>
             )
           })

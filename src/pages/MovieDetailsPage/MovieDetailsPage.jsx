@@ -70,14 +70,13 @@ function MovieDetailsPage() {
                       <p><b>Distributed by:</b> {movie.distributor}</p>
                       <p><b>Director:</b> {movie.director}</p>
                       <p className="d-inline"><b>Main cast:</b> </p>
-                      {console.log(movie)}
                       {movie.mainCast.map((eachActor, index, arr) => {
                         if (index < arr.length - 1)
                           return <p className="d-inline" key={index}> {eachActor}, </p>
                         else return <p className="d-inline" key={index}> {eachActor}. </p>
                       })}
                       <p><b>Awards:</b> {movie.awards[0].name} in {movie.awards[0].category}, {movie.awards[0].year}</p>
-                      <p className="description-text">Description:</p>
+                      <p className="description-text"><b>Description:</b></p>
                       <p className="description-paragraph">{movie.description}</p>
 
                       <div className="btns-movie mt-3">

@@ -20,15 +20,17 @@ function NavBar() {
 
       <Navbar expand="lg" className="bg-body-tertiary" expanded={expanded}>
         <Container>
-          <Navbar.Brand href="/" style={{ display: 'flex' }}>
-            <img
-              alt=""
-              src="https://res.cloudinary.com/dtetsfefb/image/upload/v1715328941/tikcet_logo_vpfref.png"
-              height="30"
-              className="d-inline-block align-top"
-            />{' '}
-            <p>IronBuster</p>
-          </Navbar.Brand>
+          <Link to={'/'} style={{ textDecoration: 'none' }}>
+            <Navbar.Brand style={{ display: 'flex' }}>
+              <img
+                alt=""
+                src="https://res.cloudinary.com/dtetsfefb/image/upload/v1715328941/tikcet_logo_vpfref.png"
+                height="30"
+                className="d-inline-block align-top"
+              />{' '}
+              <p>IronBuster</p>
+            </Navbar.Brand>
+          </Link>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(!expanded)} />
 

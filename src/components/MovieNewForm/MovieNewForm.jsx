@@ -105,7 +105,7 @@ function MovieNewForm() {
       axios
         .post(`${API_URL}/movies`, createdMovie)
         .then(() => {
-          navigate('/')
+          navigate('/movies')
         })
         .catch(err => console.log(err))
     }
