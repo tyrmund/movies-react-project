@@ -1,8 +1,10 @@
+import SearchBar from "../SearchBar/SearchBar"
 import { Navbar, Container, Nav, Form, Row, Col, Button } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import './NavBar.css'
 import searchImage from './../../assets/lupa-search.png'
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
 const API_URL = import.meta.env.VITE_API_URL
 
@@ -11,7 +13,7 @@ function NavBar() {
 
   const [expanded, setExpanded] = useState(false)
 
-  const [searchBar, setSearchBar] = useState()
+
 
   return (
     <div className="NavBar">
@@ -46,21 +48,7 @@ function NavBar() {
               </Link>
             </Nav>
 
-            <Form >
-              <Row>
-                <Col xs="auto">
-                  <Form.Control
-                    type="text"
-                    placeholder="Search"
-                    className="mr-sm-2"
-                  />
-                </Col>
-
-                <Col xs="auto">
-                  <Button variant="light" type="submit" className="pd-2"><img style={{ width: '20px' }} src={searchImage} alt="lupa" /></Button>
-                </Col>
-              </Row>
-            </Form>
+            <SearchBar />
 
           </Navbar.Collapse>
 
