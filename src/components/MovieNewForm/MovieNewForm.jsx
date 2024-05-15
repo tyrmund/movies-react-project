@@ -102,7 +102,6 @@ function MovieNewForm() {
     if (form.checkValidity() === true) {
       event.preventDefault()
 
-      console.log(createdMovie)
       axios
         .post(`${API_URL}/movies`, createdMovie)
         .then(() => {
@@ -176,7 +175,6 @@ function MovieNewForm() {
             <Form.Group as={Col} md={{ span: 5 }} className="mb-3" >
               <Form.Label>Main Cast</Form.Label>
               {mainCast.map((actor, index) => (
-
                 <InputGroup key={index}>
                   <Form.Control
                     type="text"
@@ -192,7 +190,6 @@ function MovieNewForm() {
                     x
                   </InputGroup.Text>
                 </InputGroup>
-
               ))}
               <Button
                 onClick={addMainCastInput}
