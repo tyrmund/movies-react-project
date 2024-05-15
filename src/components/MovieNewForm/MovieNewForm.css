@@ -1,3 +1,7 @@
 .movie-form-bg {
     background-color: rgb(245, 245, 245);
 }
+
+.InputGroupTextCursorPointer {
+    cursor: pointer;
+}

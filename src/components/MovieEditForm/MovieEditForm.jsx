@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { useNavigate, useParams } from "react-router-dom"
-import { Col, Container, Row, Form, Button } from "react-bootstrap"
+import { Col, Container, Row, Form, Button, InputGroup } from "react-bootstrap"
+import { getTimeAsString } from "../../utils/movie.utils"
 
 
 const API_URL = import.meta.env.VITE_API_URL
@@ -28,7 +29,7 @@ function MovieEditForm() {
           description: fullMovie.description,
           genre: fullMovie.genre,
           distributor: fullMovie.distributor,
-          runningTime: fullMovie.runningTime,
+          runningTime: getTimeAsString(fullMovie.runningTime),
           rating: fullMovie.rating
         })
       })
@@ -107,12 +108,13 @@ function MovieEditForm() {
 
   return (
     <div className="MovieEditForm mb-5">
-      <Container className="d-block mx-auto shadow-lg rounded" style={{ backgroundColor: 'rgb(245, 245, 245)' }}>
+      <Container className="d-block mx-auto shadow-lg rounded mt-5 p-4" style={{ backgroundColor: 'rgb(245, 245, 245)' }}>
 
         <Form className="mx-5" onSubmit={handleEditedMovieSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label className="form-label">Poster URL</Form.Label>
             <Form.Control
+              required
               className="form-control"
               type="text"
               name="image"
@@ -156,14 +158,18 @@ function MovieEditForm() {
             <Form.Group as={Col} md={{ span: 5 }} className="mb-3">
               <Form.Label className="form-label">Main Cast</Form.Label>
               {mainCast.map((actor, index) => (
-                <Form.Control
-                  key={index}
-                  className="form-control"
-                  type="text"
-                  name="actor"
-                  placeholder="Actor's full name"
-                  value={actor}
-                  onChange={(event) => handleMainCastChange(event, index)} />
+                <InputGroup hasValidation>
+                  <Form.Control
+                    key={index}
+                    className="form-control"
+                    type="text"
+                    name="actor"
+                    placeholder="Actor's full name"
+                    aria-describedby="inputGroupAppend"
+                    value={actor}
+                    onChange={(event) => handleMainCastChange(event, index)} />
+                  <InputGroup.Text id="inputGroupAppend">x</InputGroup.Text>
+                </InputGroup>
               ))}
               <Button
                 variant="primary"
@@ -211,7 +217,7 @@ function MovieEditForm() {
             </Form.Group>
           </Row>
 
-          <Row className="mt-5">
+          <Row className="mt-4">
             <Form.Group as={Col} md={{ span: 6 }} className="mb-3">
               <Form.Label className="form-label">Genre</Form.Label>
               <Form.Control
@@ -258,7 +264,7 @@ function MovieEditForm() {
             </Form.Group>
           </Row>
 
-          <Form.Group className="mb-3 mt-5" controlId="formBasicPassword">
+          <Form.Group className="mb-3 mt-4" controlId="formBasicPassword">
             <Form.Label>Description</Form.Label>
             <Form.Control
               type="text"
