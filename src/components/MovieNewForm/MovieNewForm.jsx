@@ -99,12 +99,15 @@ function MovieNewForm() {
 
     setValidated(true)
 
-    // axios
-    //   .post(`${API_URL}/movies`, newMovie)
-    //   .then(() => {
-    //     navigate('/')
-    //   })
-    //   .catch(err => console.log(err))
+    if (form.checkValidity() === true) {
+
+      axios
+        .post(`${API_URL}/movies`, createdMovie)
+        .then(() => {
+          navigate('/')
+        })
+        .catch(err => console.log(err))
+    }
   }
 
   return (
@@ -171,7 +174,6 @@ function MovieNewForm() {
             <Form.Group as={Col} md={{ span: 5 }} className="mb-3" >
               <Form.Label>Main Cast</Form.Label>
               {mainCast.map((actor, index) => (
-
                 <InputGroup key={index}>
                   <Form.Control
                     type="text"
@@ -187,7 +189,6 @@ function MovieNewForm() {
                     x
                   </InputGroup.Text>
                 </InputGroup>
-
               ))}
               <Button
                 onClick={addMainCastInput}
