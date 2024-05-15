@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
-import { Container, Row, Col, Button, Toast } from "react-bootstrap"
+import { Container, Row, Col, Button, Modal } from "react-bootstrap"
 import { MONTH_STRINGS } from "../../consts/data.consts"
 import { stringToDate } from "../../utils/booking.utils"
 
@@ -18,7 +18,7 @@ function BookingDetailsPage() {
   const { bookingId } = useParams()
   const [booking, setBooking] = useState({})
   const [movie, setMovie] = useState({})
-  const [showToast, setShowToast] = useState(false)
+  const [show, setShow] = useState(false)
 
   const loadBooking = () => {
     axios
@@ -39,9 +39,17 @@ function BookingDetailsPage() {
     }
   }
 
+  // const handleShowModal = () => {
+  //   setShowModal(true)
+  // }
+
+  // const handleCloseModal = () => {
+  //   setShowModal(false)
+  // }
+
   const handleDeleteButton = () => {
 
-    setShowToast(true)
+    console.log('deleted!')
     // axios
     //   .delete(`${API_URL}/bookings/${bookingId}`)
     //   .then(navigate('/bookings'))
@@ -101,22 +109,25 @@ function BookingDetailsPage() {
             </Button>
           </Col>
         </Row>
-        <Toast
-          show={showToast}
-          onClose={() => setShowToast(false)}
-          style={{
-            position: 'absolute',
-            top: 200,
-            right: 200,
-            zIndex: 1
-          }}
-          delay={3000}
-          autohide>
-          <Toast.Header>
-            <strong className="me-auto">Ironbuster</strong>
-          </Toast.Header>
-          <Toast.Body>Deleting {booking.fullName}'s entry...</Toast.Body>
-        </Toast>
+        {/* <Modal
+          show={show}
+          onHide={handleCloseModal}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Delete Booking</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Are you sure? Please confirm your choice.
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleDeleteButton}>Confirm</Button>
+          </Modal.Footer>
+        </Modal> */}
       </Container>
     </div>
 
