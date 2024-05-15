@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { Container, Row, Col } from "react-bootstrap"
 import MovieCard from "../MovieCard/MovieCard"
 
-const API_URL = "http://localhost:5000"
+const API_URL = import.meta.env.VITE_API_URL
 
 function MoviesList() {
 
@@ -35,7 +35,9 @@ function MoviesList() {
           movies.map((movie) =>
             <Col
               key={movie.id}
+              sm={{ span: 8, offset: 2 }}
               md={{ span: 4 }}
+              lg={{ span: 3 }}
               className="p-3 bg-white rounded m-3">
               <Link
                 style={{ textDecoration: 'none', color: 'black' }}
