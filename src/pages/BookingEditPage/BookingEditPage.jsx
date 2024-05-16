@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { Col, Container, Row, Form, Button } from "react-bootstrap"
+import { Col, Container, Row, Form, Button, Modal } from "react-bootstrap"
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 import { getDaysBooking } from "../../utils/booking.utils"
 import { stringToDate } from "../../utils/booking.utils"
@@ -21,6 +21,8 @@ function BookingEditPage() {
   })
 
   const [chosenMovie, setChosenMovie] = useState({})
+
+  const [showModal, setShowModal] = useState(false)
 
   const { bookingId } = useParams()
 
@@ -83,9 +85,12 @@ function BookingEditPage() {
     setBookingData({ ...bookingData, [name]: value })
   }
 
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
+
   const handleEditBookingSubmit = e => {
     e.preventDefault()
-
 
     const form = e.currentTarget
     if (form.checkValidity() === false) {
@@ -122,7 +127,7 @@ function BookingEditPage() {
           .catch(err => console.log(err))
 
       } else {
-        alert('Dates already booked')
+        setShowModal(true)
       }
 
 
@@ -161,8 +166,25 @@ function BookingEditPage() {
               </Button>
             </Form>
           </Col>
-
         </Row>
+        <Modal
+          show={showModal}
+          onHide={handleCloseModal}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>{`Error`}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Sorry, this booking range is taken. Please choose another.
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
     </div>
 

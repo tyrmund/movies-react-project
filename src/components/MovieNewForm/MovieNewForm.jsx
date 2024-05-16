@@ -21,8 +21,8 @@ function MovieNewForm() {
     description: '',
     genre: '',
     distributor: '',
-    runningTime: '00:00',
-    rating: 0
+    runningTime: '',
+    rating: 5
   })
 
   const [mainCast, setMainCast] = useState([''])
@@ -186,7 +186,7 @@ function MovieNewForm() {
                     onChange={(event) => handleMainCastAdd(event, index)} />
                   <InputGroup.Text
                     onClick={(event) => handleMainCastDelete(event, index)}
-                    className="InputGroupTextCursorPointer"
+                    className="InputDeleteCursorPointer"
                     id="inputGroupAppend">
                     x
                   </InputGroup.Text>
@@ -219,7 +219,7 @@ function MovieNewForm() {
                       onChange={(event) => handleAwardChange(event, index)} />
                     <InputGroup.Text
                       onClick={(event) => handleAwardDelete(event, index)}
-                      className="InputGroupTextCursorPointer"
+                      className="InputDeleteCursorPointer"
                       id="inputGroupAppend">
                       x
                     </InputGroup.Text>
