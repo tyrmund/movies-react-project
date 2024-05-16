@@ -2,21 +2,29 @@ import { Row, Col, Form, ListGroup } from "react-bootstrap"
 import { useState } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom"
+import { useEffect } from "react"
 
 const API_URL = import.meta.env.VITE_API_URL
 
 
 const SearchBar = () => {
 
-
-
   const [searchQuery, setSearchQuery] = useState('')
   const [movieResults, setMovieResults] = useState([])
+  const [selectedOption, setSelectedOption] = useState(false)
+
+
+  const handleSelectedOption = (boolean) => {
+    setSelectedOption(boolean)
+    setMovieResults([])
+    setSearchQuery('')
+  }
 
   const handleQueryChange = e => {
 
     const { value } = e.target
     setSearchQuery(value)
+    setSelectedOption(false)
 
     value != '' ? getMoviesByTitle(value) : setMovieResults([])
   }
@@ -48,12 +56,12 @@ const SearchBar = () => {
 
       <ListGroup style={{ position: 'absolute' }}>
 
-        {
+        {!selectedOption &&
           movieResults.map(elm => {
             return (
-              <ListGroup.Item>
-                <Link to={`/movies/${elm.id}`} style={{ textDecoration: 'none', color: 'black' }}>
-                  {elm.title}
+              <ListGroup.Item style={{ zIndex: 100 }} key={elm.id}>
+                <Link to={`/movies/${elm.id}`} style={{ textDecoration: 'none', color: 'black' }} onClick={() => handleSelectedOption(true)}>
+                  {<img src={elm.image} style={{ width: '40px' }} />} {elm.title}
                 </Link>
               </ListGroup.Item>
             )
