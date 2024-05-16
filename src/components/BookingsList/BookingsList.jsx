@@ -26,8 +26,13 @@ function BookingsList() {
       <Container>
         <Row className="mt-5">
           {bookings.map((booking) =>
-            <Col key={booking.id} md={{ span: 6, offset: 3 }} >
-              <Link to={`/bookings/${booking.id}`} style={{ textDecoration: 'none' }}>
+            <Col
+              key={booking.id}
+              md={{ span: 6 }}>
+              <Link
+                to={`/bookings/${booking.id}`}
+                style={{ textDecoration: 'none' }}
+              >
                 <BookingCard {...booking} />
               </Link>
             </Col>

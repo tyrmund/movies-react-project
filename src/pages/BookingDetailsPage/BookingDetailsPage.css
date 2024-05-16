@@ -1,0 +1,9 @@
+.booking-text {
+  margin-bottom: 100px;
+}
+
+.btns-booking {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+}

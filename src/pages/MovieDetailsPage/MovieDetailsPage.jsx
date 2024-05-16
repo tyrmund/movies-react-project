@@ -54,23 +54,23 @@ function MovieDetailsPage() {
   return (
     <div className="MovieDetailsPage">
       <Container className="mt-3 mx-auto d-block p-5" style={{
-        maxWidth: '1000px', margin: '20px', border: '1px solid rgba(239, 239, 240, 0.9)',
+        maxWidth: '1250px', margin: '20px', border: '1px solid rgba(239, 239, 240, 0.9)',
         borderRadius: '10px', boxShadow: '2px 2px 2px 1px gainsboro'
       }}>
-        <Row className="mb-5">
+        <Row className="align-items-center">
           {
             movie && (
               <>
-                <Col md={{ span: 5, offset: 1 }}>
+                <Col md={{ span: 5 }}>
                   <img src={movie.image} alt={movie.title} className="rounded" />
                 </Col>
 
-                <Col md={{ span: 6 }}>
+                <Col md={{ span: 7 }} >
                   <div className="detail-info">
                     <div className="title-movie-info">
 
-                      <h1 className="movie-title">{movie.title}</h1>
-                      <h1 className={`movie-rating ${ratingColor}`}>{movie.rating}</h1>
+                      <h1 className="movie-title" style={{ maxWidth: '300px' }}>{movie.title}</h1>
+                      <h1 className={`movie-rating ${ratingColor} ml-5`} style={{ maxWidth: '300px' }}>{movie.rating}</h1>
 
                     </div>
                     <div className="text-movie-info">
@@ -88,17 +88,21 @@ function MovieDetailsPage() {
                       <p className="description-text"><b>Description:</b></p>
                       <p className="description-paragraph">{movie.description}</p>
 
-                      <div className="btns-movie mt-3">
-                        <Link to={`/movies/edit/${movieId}`} style={{ textDecoration: 'none' }}>
-                          <Button variant="secondary mr-3">Edit</Button>{' '}
-                        </Link>
+                      <div className="btns-movie">
+                        <div className="btns-movie-safe">
+                          <Link to={`/movies/edit/${movieId}`} style={{ textDecoration: 'none' }}>
+                            <Button variant="secondary mr-3 mt-3">Edit</Button>{' '}
+                          </Link>
 
-                        <Button onClick={handleShowModal} variant="danger mr-3">Delete</Button>{' '}
-                        <br />
+                          <Link to={`/bookings/new/${movieId}`} style={{ textDecoration: 'none', marginTop: '5px' }} >
+                            <Button variant="primary mt-3">Book movie</Button>{' '}
+                          </Link>
+                        </div>
 
-                        <Link to={`/bookings/new/${movieId}`} style={{ textDecoration: 'none', marginTop: '5px' }} >
-                          <Button variant="primary mt-3">Book movie</Button>{' '}
-                        </Link>
+                        <div className="btn-movie-delete">
+                          <Button onClick={handleShowModal} variant="danger mr-3 mt-3">Delete</Button>{' '}
+                        </div>
+
                       </div>
 
                     </div>

@@ -33,3 +33,9 @@
 .description-text {
   margin-top: 20px;
 }
+
+.btns-movie {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+}

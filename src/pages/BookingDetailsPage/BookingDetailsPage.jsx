@@ -1,4 +1,5 @@
 import axios from "axios"
+import './BookingDetailsPage.css'
 import { useEffect, useState } from "react"
 import { useParams, Link, useNavigate } from "react-router-dom"
 import { Container, Row, Col, Button, Modal } from "react-bootstrap"
@@ -65,47 +66,62 @@ function BookingDetailsPage() {
   return (
 
     <div className="BookingDetailsPage">
-      <Container className="mt-5 shadow-lg p-3 rounded" style={{ maxWidth: '800px' }}>
-        <Row className="pd-5">
-          <Col className="m-2" md={{ span: 4, offset: 1 }}>
+      <Container className="mt-5 p-3 rounded " style={{
+        maxWidth: '950px', border: '1.8px solid rgba(239, 239, 240, 0.9)',
+        borderRadius: '10px', boxShadow: '2px 2px 2px 1px gainsboro', fontSize: '20px'
+      }}>
+        <Row className="align-items-center">
+
+          <Col className="m-2" md={{ span: 5, offset: 1 }}>
             <Link to={`/movies/${movie.id}`}>
               <img
-                className="ml-5 shadow-lg w-100 h-auto rounded"
-                style={{ maxWidth: '200px' }}
+                className="ml-5 h-auto rounded"
+                style={{ maxWidth: '320px' }}
                 src={movie.image}
                 alt={movie.title} />
             </Link>
           </Col>
-          <Col className="m-2" md={{ span: 6 }}>
-            <h1 className="mb-2">Booking Info</h1>
-            <hr className="w-50" style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 10)' }} />
-            <p className="mt-5"><b>Name of borrower:</b> {booking.fullName}</p>
-            <p><b>Movie booked:</b> {movie?.title}</p>
-            <p><b>Date of booking:</b> {booking.bookingDate} </p>
-            <p style={{ fontStyle: 'italic', color: 'red' }}>Movie booked for {booking.daysBooked} days</p>
+          <Col className="m-2 w-5" md={{ span: 6 }}>
+            <div className="booking-text">
+              <div>
+                <h1 className="mb-3">Booking Info</h1>
+                <hr className="w-50 mb-5" style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 10)' }} />
+              </div>
+
+              <p><b>Name of borrower:</b> {booking.fullName}</p>
+              <p><b>Movie booked:</b> {movie?.title}</p>
+              <p><b>Date of booking:</b> {booking.bookingDate} </p>
+              <p style={{ fontStyle: 'italic', color: 'red' }} className="mb-5">Movie booked for {booking.daysBooked} days</p>
+            </div>
+
+            <div className="btns-booking">
+
+              <Link
+                to={`/bookings/edit/${bookingId}`}
+                style={{ textDecoration: 'none' }}>
+                <Button
+                  type='button'
+                  className="bg-secondary"
+                  style={{ width: '100px', height: '40px', border: 'none' }}>
+                  Edit Entry
+                </Button>
+              </Link>
+
+              <Button
+                type='button'
+                className="bg-danger border-danger"
+                style={{ width: '100px', height: '40px' }}
+                onClick={handleShowModal}>
+                Delete
+              </Button>
+            </div>
+
           </Col>
         </Row>
-        <Row className="mt-3">
-          <Link
-            to={`/bookings/edit/${bookingId}`}
-            style={{ textDecoration: 'none' }}>
-            <Button
-              type='button'
-              className="mx-auto d-block bg-secondary border-secondary"
-              style={{ width: '200px', height: '60px' }}>
-              Edit Entry
-            </Button>
-          </Link>
-        </Row>
+
         <Row className="mt-3 justify-content-end">
           <Col xs='auto'>
-            <Button
-              type='button'
-              className=" m-4 bg-danger border-danger"
-              style={{ width: '100px', height: '40px' }}
-              onClick={handleShowModal}>
-              Delete
-            </Button>
+
           </Col>
         </Row>
         <Modal
@@ -128,7 +144,7 @@ function BookingDetailsPage() {
           </Modal.Footer>
         </Modal>
       </Container>
-    </div>
+    </div >
 
   )
 

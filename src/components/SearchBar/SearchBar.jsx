@@ -15,6 +15,7 @@ const SearchBar = () => {
 
 
   const handleSelectedOption = (boolean) => {
+    // when you click the selected movie, it updates the state of the movies so all the options don't show, it updates the query so there's no text left behind, and it updates the selected option so that it 
     setSelectedOption(boolean)
     setMovieResults([])
     setSearchQuery('')
@@ -27,6 +28,7 @@ const SearchBar = () => {
     setSelectedOption(false)
 
     value != '' ? getMoviesByTitle(value) : setMovieResults([])
+    // this updates the query in the search bar when i's not empty; when it is, it shows nothing because there is no movie being updated (forcing it with ternary)
   }
 
   const getMoviesByTitle = query => {
@@ -56,7 +58,7 @@ const SearchBar = () => {
 
       <ListGroup style={{ position: 'absolute' }}>
 
-        {!selectedOption &&
+        {!selectedOption &&            // this makes the search bar selection disappear upon clicking
           movieResults.map(elm => {
             return (
               <ListGroup.Item style={{ zIndex: 100 }} key={elm.id}>
