@@ -25,7 +25,7 @@ function MovieDetailsPage() {
 
   useEffect(() => {
     getOneMovie()
-  }, [])
+  }, [movieId])
 
   const getOneMovie = () => {
     axios

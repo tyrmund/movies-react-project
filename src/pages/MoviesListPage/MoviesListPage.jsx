@@ -1,6 +1,7 @@
 import { Button, Container } from "react-bootstrap"
 import MoviesList from "../../components/MoviesList/MoviesList"
 import { Link } from "react-router-dom"
+import ScrollToTop from "react-scroll-to-top"
 
 function MoviesListPage() {
 
@@ -14,6 +15,7 @@ function MoviesListPage() {
         </Link>
       </Container>
       <MoviesList />
+      <ScrollToTop />
     </div >
   )
 
