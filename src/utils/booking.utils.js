@@ -12,7 +12,7 @@ export const getDaysBooking = ([date1, date2]) => {
 
 export const isValidBookingDate = ([date1, date2], bookedDate, daysBooked) => {
 
-  const requestedFrom = date1.getTime()
+  const requestedFrom = date1.getTime() + 1
   const requestedTo = date2.getTime()
 
   const bookedFrom = bookedDate.getTime()
@@ -24,10 +24,6 @@ export const isValidBookingDate = ([date1, date2], bookedDate, daysBooked) => {
 export const isItBookedToday = (bookings) => {
 
   if (bookings.length === 0) return true
-
-  // console.log('HOY', today)
-  // console.log('INICIO RESERVA ACTUAL', bookedFrom)
-  // console.log('FIN RESERVA ACTUAL', bookedTo)
 
   const isItBooked = bookings.reduce((acc, eachBooking) => {
 

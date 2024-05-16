@@ -200,7 +200,7 @@ function MovieEditForm() {
                     onChange={(event) => handleMainCastChange(event, index)} />
                   <InputGroup.Text
                     onClick={(event) => handleMainCastDelete(event, index)}
-                    className="InputGroupTextCursorPointer"
+                    className="InputDeleteCursorPointer"
                     id="inputGroupAppend">
                     x
                   </InputGroup.Text>
@@ -232,7 +232,7 @@ function MovieEditForm() {
                       onChange={(event) => handleAwardChange(event, index)} />
                     <InputGroup.Text
                       onClick={(event) => handleAwardDelete(event, index)}
-                      className="InputGroupTextCursorPointer"
+                      className="InputDeleteCursorPointer"
                       id="inputGroupAppend">
                       x
                     </InputGroup.Text>

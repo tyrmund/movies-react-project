@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { Col, Container, Row, Form, Button } from "react-bootstrap"
+import { Col, Container, Row, Form, Button, Modal } from "react-bootstrap"
 import { useNavigate, useParams } from "react-router-dom"
 import 'react-calendar/dist/Calendar.css'
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
@@ -29,6 +29,8 @@ function BookingNewPage() {
 
   const [chosenMovie, setChosenMovie] = useState({})
 
+  const [showModal, setShowModal] = useState(false)
+
   useEffect(() => {
     loadChosenMovie()
   }, [])
@@ -56,10 +58,12 @@ function BookingNewPage() {
     setBookingData({ ...bookingData, [name]: value })
   }
 
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
+
   const handleBookingFormSubmit = e => {
     e.preventDefault()
-
-
 
     const form = e.currentTarget
     if (form.checkValidity() === false) {
@@ -96,7 +100,7 @@ function BookingNewPage() {
           .catch(err => console.log(err))
 
       } else {
-        alert('Dates already booked')
+        setShowModal(true)
       }
     }
   }
@@ -131,7 +135,24 @@ function BookingNewPage() {
               </Button>
             </Form>
           </Col>
-
+          <Modal
+            show={showModal}
+            onHide={handleCloseModal}
+            backdrop="static"
+            keyboard={false}
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>{`Error`}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              Sorry, this booking range is taken. Please choose another.
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseModal}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
         </Row>
       </Container>
     </div>
