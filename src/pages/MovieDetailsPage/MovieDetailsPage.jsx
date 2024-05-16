@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { Container, Row, Col, Button } from "react-bootstrap"
+import { Container, Row, Col, Button, Modal } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import './MovieDetailsPage.css'
 import { getRatingColor } from "../../utils/movie.utils"
@@ -13,6 +13,7 @@ const API_URL = import.meta.env.VITE_API_URL
 function MovieDetailsPage() {
 
   const [movie, setMovie] = useState()
+  const [showModal, setShowModal] = useState(false)
 
   let ratingColor = ''
   if (movie) {
@@ -34,12 +35,20 @@ function MovieDetailsPage() {
       .catch(err => console.log(err))
   }
 
-
   const deleteMovie = (id) => {
-    axios
-      .delete(`${API_URL}/movies/${id}`)
-      .then(navigate('/movies'))
-      .catch(err => console.log(err))
+    console.log(`${movie.title} deleted!`)
+    // axios
+    //   .delete(`${API_URL}/movies/${id}`)
+    //   .then(navigate('/movies'))
+    //   .catch(err => console.log(err))
+  }
+
+  const handleShowModal = () => {
+    setShowModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
   }
 
   return (
@@ -75,7 +84,7 @@ function MovieDetailsPage() {
                           return <p className="d-inline" key={index}> {eachActor}, </p>
                         else return <p className="d-inline" key={index}> {eachActor}. </p>
                       })}
-                      <p><b>Awards:</b> {movie.awards[0].name} in {movie.awards[0].category}, {movie.awards[0].year}</p>
+                      <p className="mt-3"><b>Awards:</b> {movie.awards[0].name} in {movie.awards[0].category}, {movie.awards[0].year}</p>
                       <p className="description-text"><b>Description:</b></p>
                       <p className="description-paragraph">{movie.description}</p>
 
@@ -84,9 +93,7 @@ function MovieDetailsPage() {
                           <Button variant="secondary mr-3">Edit</Button>{' '}
                         </Link>
 
-                        <Link to={`/movies`} style={{ textDecoration: 'none' }}>
-                          <Button onClick={() => deleteMovie(movieId)} variant="danger mr-3">Delete</Button>{' '}
-                        </Link>
+                        <Button onClick={handleShowModal} variant="danger mr-3">Delete</Button>{' '}
                         <br />
 
                         <Link to={`/bookings/new/${movieId}`} style={{ textDecoration: 'none', marginTop: '5px' }} >
@@ -100,6 +107,25 @@ function MovieDetailsPage() {
               </>
             )}
         </Row>
+        <Modal
+          show={showModal}
+          onHide={handleCloseModal}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>{`Delete ${movie?.title}`}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {`Are you sure you want to delete ${movie?.title}'s entry? Please confirm your choice.`}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={() => deleteMovie(movieId)}>Confirm</Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
 
     </div>

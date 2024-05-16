@@ -16,7 +16,7 @@ function MoviesList() {
 
   const loadAllMovies = () => {
     axios
-      .get(`${API_URL}/movies`)
+      .get(`${API_URL}/movies?_embed=bookings`)
       .then(({ data }) => setMovies(data))
       .catch(err => console.log(err))
   }

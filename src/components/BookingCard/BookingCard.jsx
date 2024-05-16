@@ -27,7 +27,7 @@ function BookingCard({ fullName, bookingDate, daysBooked, movieId }) {
         <Row>
           <Col className='md-8 d-flex align-items-center'>
             <Card.Body>
-              <Card.Title>Movie: {movie.title}</Card.Title>
+              <Card.Title>{movie.title}</Card.Title>
               <Card.Subtitle className="mb-2 text-muted">By: {fullName}</Card.Subtitle>
               <Card.Subtitle className="mb-2 text-muted">Booked for: {daysBooked} days</Card.Subtitle>
             </Card.Body>

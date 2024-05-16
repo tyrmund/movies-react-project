@@ -11,7 +11,7 @@ function NotFoundPage() {
                     className="w-100 h-auto mx-auto d-block"
                     style={{ maxWidth: '400px' }}
                     src="https://res.cloudinary.com/dc7ycwd1u/image/upload/v1715445067/giphy-750322318_iluil0.gif" alt="not-found-gif" />
-                <Link to={'/'}>
+                <Link to={'/'} style={{ textDecoration: 'none' }}>
                     <Button
                         className='btn btn-secondary mx-auto d-block mt-5'>
                         Back to Ironbuster

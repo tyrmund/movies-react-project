@@ -4,6 +4,8 @@ import { useParams, useNavigate } from "react-router-dom"
 import { Col, Container, Row, Form, Button } from "react-bootstrap"
 import DateRangePicker from '@wojtekmaj/react-daterange-picker'
 import { getDaysBooking } from "../../utils/booking.utils"
+import { stringToDate } from "../../utils/booking.utils"
+import { isValidBookingDate } from "../../utils/booking.utils"
 
 
 const API_URL = import.meta.env.VITE_API_URL
@@ -65,7 +67,7 @@ function BookingEditPage() {
     if (movieId) {
 
       axios
-        .get(`${API_URL}/movies/${movieId}`)
+        .get(`${API_URL}/movies/${movieId}?_embed=bookings`)
         .then(({ data }) => setChosenMovie(data))
         .catch(err => console.log(err))
     }
@@ -92,15 +94,39 @@ function BookingEditPage() {
     }
     setValidated(true)
 
-
     if (form.checkValidity() === true) {
 
-      axios
-        .put(`${API_URL}/bookings/${bookingId}`, bookingData)
-        .then(navigate('/bookings'))
-        .catch(err => console.log(err))
-    }
+      let isValid
+      if (chosenMovie.bookings.length === 0) {
+        isValid = true
+      } else {
+        isValid = chosenMovie.bookings.reduce((acc, eachBooking) => {
+          const formattedDate = stringToDate(eachBooking.bookingDate)
+          const date1 = date[0]
+          const date2 = date[1]
 
+          if (isValidBookingDate([date1, date2], formattedDate, eachBooking.daysBooked)
+            || (bookingData.id === eachBooking.id)) {
+            return acc && true
+          } else {
+            return acc && false
+          }
+        }, true)
+      }
+
+      if (isValid) {
+
+        axios
+          .put(`${API_URL}/bookings/${bookingId}`, bookingData)
+          .then(navigate('/bookings'))
+          .catch(err => console.log(err))
+
+      } else {
+        alert('Dates already booked')
+      }
+
+
+    }
 
   }
 

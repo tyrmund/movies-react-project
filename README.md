@@ -17,4 +17,4 @@ This is an URL guide for the Ironbuster App.
 | `/bookings`                   | Bookings Page List             |
 | `/bookings/:bookingId`        | Booking Details Page           |
 | `/bookings/edit/:bookingId`   | Bookings Page List             |
-| `/bookings/new`               | Bookings Creation Form         |
+| `/bookings/new/:movieId`      | Bookings Creation Form         |

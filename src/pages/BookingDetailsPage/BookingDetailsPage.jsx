@@ -18,7 +18,7 @@ function BookingDetailsPage() {
   const { bookingId } = useParams()
   const [booking, setBooking] = useState({})
   const [movie, setMovie] = useState({})
-  const [show, setShow] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   const loadBooking = () => {
     axios
@@ -39,21 +39,20 @@ function BookingDetailsPage() {
     }
   }
 
-  // const handleShowModal = () => {
-  //   setShowModal(true)
-  // }
+  const handleShowModal = () => {
+    setShowModal(true)
+  }
 
-  // const handleCloseModal = () => {
-  //   setShowModal(false)
-  // }
+  const handleCloseModal = () => {
+    setShowModal(false)
+  }
 
   const handleDeleteButton = () => {
 
-    console.log('deleted!')
-    // axios
-    //   .delete(`${API_URL}/bookings/${bookingId}`)
-    //   .then(navigate('/bookings'))
-    //   .catch(err => console.log(err))
+    axios
+      .delete(`${API_URL}/bookings/${bookingId}`)
+      .then(navigate('/bookings'))
+      .catch(err => console.log(err))
   }
 
   const monthNames = MONTH_STRINGS
@@ -104,22 +103,22 @@ function BookingDetailsPage() {
               type='button'
               className=" m-4 bg-danger border-danger"
               style={{ width: '100px', height: '40px' }}
-              onClick={handleDeleteButton}>
+              onClick={handleShowModal}>
               Delete
             </Button>
           </Col>
         </Row>
-        {/* <Modal
-          show={show}
+        <Modal
+          show={showModal}
           onHide={handleCloseModal}
           backdrop="static"
           keyboard={false}
         >
           <Modal.Header closeButton>
-            <Modal.Title>Delete Booking</Modal.Title>
+            <Modal.Title>{`Delete ${movie?.title} Booking`}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            Are you sure? Please confirm your choice.
+            {`Are you sure you want to delete ${booking.fullName}'s booking? Please confirm your choice.`}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleCloseModal}>
@@ -127,7 +126,7 @@ function BookingDetailsPage() {
             </Button>
             <Button variant="primary" onClick={handleDeleteButton}>Confirm</Button>
           </Modal.Footer>
-        </Modal> */}
+        </Modal>
       </Container>
     </div>
 

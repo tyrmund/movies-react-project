@@ -116,7 +116,6 @@ function MovieEditForm() {
       axios
         .put(`${API_URL}/movies/${movieId}`, fullMovie)
         .then(() => {
-          alert(`Movie ${fullMovie.title} edited!`)
           navigate(`/movies/${movieId}`)
         })
         .catch(err => console.log(err))
@@ -125,7 +124,7 @@ function MovieEditForm() {
 
   return (
     <div className="MovieEditForm mb-5">
-      <Container className="d-block mx-auto shadow-lg rounded mt-5 p-4" style={{ backgroundColor: 'rgb(245, 245, 245)' }}>
+      <Container className="d-block mx-auto shadow-lg rounded mt-5 p-4 movie-form-bg">
 
         <Form noValidate validated={validated} className="mx-5" onSubmit={handleEditedMovieSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -192,6 +191,7 @@ function MovieEditForm() {
               {mainCast.map((actor, index) => (
                 <InputGroup key={index}>
                   <Form.Control
+                    required
                     type="text"
                     name="actor"
                     placeholder="Actor's full name"
@@ -204,6 +204,9 @@ function MovieEditForm() {
                     id="inputGroupAppend">
                     x
                   </InputGroup.Text>
+                  <Form.Control.Feedback type="invalid">
+                    Please include at least one cast member.
+                  </Form.Control.Feedback>
                 </InputGroup>
               ))}
               <Button
@@ -220,6 +223,7 @@ function MovieEditForm() {
                 <Form.Group className="mb-3" key={index}>
                   <InputGroup>
                     <Form.Control
+                      required
                       type="text"
                       name="name"
                       placeholder="Award name"
@@ -234,17 +238,22 @@ function MovieEditForm() {
                     </InputGroup.Text>
                   </InputGroup>
                   <Form.Control
+                    required
                     type="text"
                     name="category"
                     placeholder="Category"
                     value={award.category}
                     onChange={(event) => handleAwardChange(event, index)} />
                   <Form.Control
+                    required
                     type="number"
                     name="year"
                     placeholder="Year"
                     value={award.year}
                     onChange={(event) => handleAwardChange(event, index)} />
+                  <Form.Control.Feedback type="invalid">
+                    Please include at least one award.
+                  </Form.Control.Feedback>
                 </Form.Group>
               ))}
               <Button

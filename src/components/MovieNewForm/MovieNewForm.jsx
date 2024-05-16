@@ -177,6 +177,7 @@ function MovieNewForm() {
               {mainCast.map((actor, index) => (
                 <InputGroup key={index}>
                   <Form.Control
+                    required
                     type="text"
                     name="actor"
                     placeholder="Actor's full name"
@@ -189,6 +190,9 @@ function MovieNewForm() {
                     id="inputGroupAppend">
                     x
                   </InputGroup.Text>
+                  <Form.Control.Feedback type="invalid">
+                    Please include at least one cast member.
+                  </Form.Control.Feedback>
                 </InputGroup>
               ))}
               <Button
@@ -205,6 +209,7 @@ function MovieNewForm() {
                 <Form.Group className="mb-3" key={index}>
                   <InputGroup>
                     <Form.Control
+                      required
                       className="form-control"
                       type="text"
                       name="name"
@@ -220,6 +225,7 @@ function MovieNewForm() {
                     </InputGroup.Text>
                   </InputGroup>
                   <Form.Control
+                    required
                     className="form-control"
                     type="text"
                     name="category"
@@ -227,12 +233,16 @@ function MovieNewForm() {
                     value={award.category}
                     onChange={(event) => handleAwardChange(event, index)} />
                   <Form.Control
+                    required
                     className="form-control"
                     type="number"
                     name="year"
                     placeholder="Year"
                     value={award.year}
                     onChange={(event) => handleAwardChange(event, index)} />
+                  <Form.Control.Feedback type="invalid">
+                    Please include at least one award.
+                  </Form.Control.Feedback>
                 </Form.Group>
               ))}
               <Button
