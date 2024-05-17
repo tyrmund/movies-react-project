@@ -36,11 +36,10 @@ function MovieDetailsPage() {
   }
 
   const deleteMovie = (id) => {
-    console.log(`${movie.title} deleted!`)
-    // axios
-    //   .delete(`${API_URL}/movies/${id}`)
-    //   .then(navigate('/movies'))
-    //   .catch(err => console.log(err))
+    axios
+      .delete(`${API_URL}/movies/${id}`)
+      .then(navigate('/movies'))
+      .catch(err => console.log(err))
   }
 
   const handleShowModal = () => {
