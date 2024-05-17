@@ -24,7 +24,7 @@ function BookingNewPage() {
     fullName: '',
     daysBooked: 0,
     bookingDate: '',
-    movieId: Number(movieId)
+    movieId: Number(movieId)      // to turn the string from the API into a number
   })
 
   const [chosenMovie, setChosenMovie] = useState({})
@@ -49,6 +49,7 @@ function BookingNewPage() {
 
 
   const handleDateChange = newDate => {
+    // newDate is the new name referring to the value {date} inside the DateRangePicker
     setDate(newDate)
     setBookingData({ ...bookingData, daysBooked: Math.ceil(getDaysBooking(newDate)), bookingDate: newDate[0].toString().substring(0, 15) })
   }
