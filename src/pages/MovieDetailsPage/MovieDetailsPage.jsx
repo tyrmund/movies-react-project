@@ -38,7 +38,7 @@ function MovieDetailsPage() {
   const deleteMovie = (id) => {
     axios
       .delete(`${API_URL}/movies/${id}?_dependent=bookings`)
-      .then(navigate('/movies'))
+      .then()
       .catch(err => console.log(err))
     axios
       .delete(`${API_URL}/movies/${id}`)
